@@ -1,0 +1,111 @@
+<h1 mat-dialog-title>{{this.tituloAccion}} Articulo</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field class="input-full-width" >
+                    <mat-label>Descripción</mat-label>
+                    <input formControlName="descripcion" name="descripcion" matInput type="text" [disabled]="visualizar">
+                    <mat-error *ngIf="hasErrors('descripcion','required')">
+                        Por favor ingrese la descripcion del producto
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('descripcion','minLength')">
+                        La descripcion debe tener almenos 3 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Marca</mat-label>
+                    <input formControlName="marca" name="marca" matInput type="text">
+                    <mat-error *ngIf="hasErrors('marca','required')">
+                        Por favor ingrese el marca
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('marca','minLength') || !hasErrors('marca','maxLength')">
+                        La marca debe tener entre 3 y 20 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Modelo</mat-label>
+                    <input formControlName="modelo" name="modelo" matInput type="text">
+                    <mat-error *ngIf="hasErrors('modelo','required')">
+                        Por favor ingrese el modelo
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('modelo','minLength') || !hasErrors('modelo','maxLength')">
+                        El modelo debe tener entre 3 y 20 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Año</mat-label>
+                    <input formControlName="anno" name="anno" matInput type="number" min="0">
+                    <mat-error *ngIf="hasErrors('anno','required')">
+                        Por favor ingrese el año
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('anno','minLength') || !hasErrors('anno','maxLength')">
+                        El año tiene que tener el formato "9999"
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width" >
+                    <mat-label>Precio $</mat-label>
+                    <input formControlName="precio" name="precio" matInput type="number" min="0">
+
+                    <mat-error *ngIf="hasErrors('precio','required')">
+                        Por favor ingrese un precio
+                    </mat-error> 
+                    
+                </mat-form-field>
+                
+            </div>
+
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Stock actual</mat-label>
+                    <input formControlName="stockActual" name="stockActual" matInput type="number" min="0">
+                    <mat-error *ngIf="hasErrors('stockActual','required')">
+                        Por favor ingrese el stock Actual
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+            <div class="col-6 ">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Stock Minimo</mat-label>
+                    <input formControlName="stockMinimo" name="stockMinimo" matInput type="number" min="0">
+                    
+                    <mat-error *ngIf="hasErrors('stockMinimo','required')">
+                        Por favor ingrese un stock minimo válido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-6 ">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Stock Maximo</mat-label>
+                    <input formControlName="stockMaximo" name="stockMaximo" matInput type="number" min="0">
+                    
+                    <mat-error *ngIf="hasErrors('stockMaximo','required')">
+                        Por favor ingrese un stock máximo válido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+  </form>
+  <div mat-dialog-actions *ngIf="!visualizar">
+    <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="guardarEditar()">{{this.botonAccion}}</button>
+  </div>
+  <div mat-dialog-actions *ngIf="visualizar">
+      <button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<h1 mat-dialog-title>{{this.tituloAccion}} Proveedor</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <mat-radio-group formControlName="estado">
+                    <mat-radio-button [value]="0">Activo</mat-radio-button>
+                    <mat-radio-button [value]="1">Desabilitado</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Razón social</mat-label>
+                    <input formControlName="razonSocial" name="razonSocial" matInput type="text">
+                    <mat-error *ngIf="hasErrors('razonSocial','required')">
+                        Por favor ingrese la razón social
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('razonSocial','minLength')">
+                        La razón social debe tener almenos 3 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" name="nombre" matInput type="text">
+                    <mat-error *ngIf="hasErrors('nombre','required')">
+                        Por favor ingrese el nombre
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('nombre','minLength')">
+                        El nombre debe tener almenos 3 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>CUIL</mat-label>
+                    <input formControlName="cuil" name="cuil" matInput type="text">
+                    <mat-error *ngIf="hasErrors('cuil','required')">
+                        Por favor ingrese el CUIL
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('cuil','minLength') || !hasErrors('cuil','maxLength') ">
+                        El CUIL debe tener entre 8 y 11 números
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+            <div class="col-12">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Domicilio</mat-label>
+                    <input formControlName="domicilio" name="domicilio" matInput type="text">
+                    <mat-error *ngIf="hasErrors('domicilio','required')">
+                        Por favor ingrese el Domicilio
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Telefono</mat-label>
+                    <input formControlName="telefono" name="telefono" matInput type="text">
+
+                    <mat-error *ngIf="hasErrors('telefono','required')">
+                        Por favor ingrese un telefono
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('email','minLength') || !hasErrors('telefono','maxLength')">
+                        El teléfono debe tener entre 8 y 11 numeros
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-6 ">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" name="email" matInput type="email">
+                    
+                    <mat-error *ngIf="hasErrors('email','required')">
+                        Por favor ingrese un email valido
+                    </mat-error>
+                    <mat-error *ngIf="hasErrors('email','email')">
+                        Por favor ingrese un email valido
+                    </mat-error>
+                    
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+  </form>
+  <div mat-dialog-actions *ngIf="!visualizar">
+    <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="guardarEditar()">{{this.botonAccion}}</button>
+  </div>
+  <div mat-dialog-actions *ngIf="visualizar">
+      <button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+  </div>
+</div>
+

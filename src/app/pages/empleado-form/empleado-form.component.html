@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>{{this.tituloAccion}} Vendedor</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <mat-radio-group formControlName="estado">
+                    <mat-radio-button [value]="0">Activo</mat-radio-button>
+                    <mat-radio-button [value]="1">Desabilitado</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" name="nombre" matInput type="text">
+                    <mat-error *ngIf="hasErrors('nombre','required')">
+                        Por favor ingrese el nombre
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('nombre','minLength')">
+                        El nombre debe tener almenos 3 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Apellido</mat-label>
+                    <input formControlName="apellido" name="apellido" matInput type="text">
+                    <mat-error *ngIf="hasErrors('apellido','required')">
+                        Por favor ingrese el apellido
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('apellido','minLength')">
+                        El apellido debe tener almenos 3 caracteres
+                    </mat-error> 
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>DNI</mat-label>
+                    <input formControlName="dni" name="dni" matInput type="text">
+                    <mat-error *ngIf="hasErrors('dni','required')">
+                        Por favor ingrese el DNI
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('dni','minLength') || !hasErrors('dni','maxLength')">
+                        El DNI debe tener entre 6 y 8 numeros
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Telefono</mat-label>
+                    <input formControlName="telefono" name="telefono" matInput type="text">
+
+                    <mat-error *ngIf="hasErrors('telefono','required')">
+                        Por favor ingrese un telefono
+                    </mat-error> 
+                    <mat-error *ngIf="hasErrors('telefono','minLength') || !hasErrors('telefono','maxLength')">
+                        El teléfono debe tener entre 8 y 11 numeros
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-6 ">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" name="email" matInput type="email">
+                    
+                    <mat-error *ngIf="hasErrors('email','required')">
+                        Por favor ingrese un email valido
+                    </mat-error>
+                    <mat-error *ngIf="hasErrors('email','email')">
+                        Por favor ingrese un email valido
+                    </mat-error>
+                    
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+  </form>
+  <div mat-dialog-actions *ngIf="!visualizar">
+    <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="guardarEditar()">{{this.botonAccion}}</button>
+  </div>
+  <div mat-dialog-actions *ngIf="visualizar">
+      <button mat-raised-button color="warn" (click)="cancelar()">Cerrar</button>
+  </div>
+</div>
