@@ -2,6 +2,25 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
+## Instrucciones de instalacion
+
+Tener descargado node
+Descargar angular cli version 16 con el comando:
+
+Npm i -g @angular/cli@16.2.10
+
+Si tienen una version superior, tienen que desinstalarla e instalar esta
+
+Clonan el repositorio y para usarlo lo abren con visual studio code y ejecutan:
+npm install
+
+una vez instalado lo corren con:
+npm start
+
+
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
