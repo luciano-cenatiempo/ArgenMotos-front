@@ -17,7 +17,7 @@ export class ArticuloFormComponent {
   tituloAccion?: string;
   botonAccion?: string;
   visualizar: boolean = false;
-
+  
   
   
   constructor(
@@ -56,12 +56,11 @@ export class ArticuloFormComponent {
       descripcion: this.formGroup.value.descripcion,
       marca: this.formGroup.value.marca,
       modelo: this.formGroup.value.modelo,
-      anno: this.formGroup.value.anno,
+      anno: (parseInt(this.formGroup.value.anno)).toString(),
       precio: this.formGroup.value.precio,
       stockActual: this.formGroup.value.stockActual,
       stockMinimo: this.formGroup.value.stockMinimo,
       stockMaximo: this.formGroup.value.stockMaximo,
-      // estadoVendedor: parseInt(this.formGroup.value.estadoVendedor)
     }
 
     if (this.datosArticulo.tipo == 'crear'){
@@ -71,8 +70,12 @@ export class ArticuloFormComponent {
           if(data!= null){
             this._utilidadService.mostrarAlerta("El articulo fue registrado con exito", "Exito");
             this.dialogRef.close("true")
+            console.log("true")
+            console.log(data);
           } else{
             this._utilidadService.mostrarAlerta("No se pudo registrar el articulo", "Error");
+            console.log("false")
+            console.log(data);
           }
         },
         error:(e) => {console.error(e)}

@@ -48,8 +48,8 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     }
     
     ngOnInit(): void {
-      //this.obtenerClientes(); // restablecer despues de pruebas
-      this.obtenerClientesMock(); // borrar despues de pruebas
+      this.obtenerClientes(); // restablecer despues de pruebas
+      //this.obtenerClientesMock(); // borrar despues de pruebas
     }
     
     ngAfterViewInit(): void {
@@ -82,6 +82,9 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     }
   
     editarCliente(cliente : Cliente){
+      // casteo de clientes tipo
+      console.log(this.dataListaClientes);  
+      console.log(cliente);
       this.dialog.open(ClienteFormComponent, {
         disableClose:true,
         autoFocus: true,

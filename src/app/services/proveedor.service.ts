@@ -28,7 +28,7 @@ export class ProveedorService {
   }
 
   updateProveedor(id: number, proveedor: Proveedor): Observable<Proveedor> {
-    return this.http.post<Proveedor>(`${this.UrlBase}/${id}`, proveedor);
+    return this.http.put<Proveedor>(`${this.UrlBase}/${id}`, proveedor);
   }
 
   deleteProveedor(id: number): Observable<Proveedor> {

@@ -47,8 +47,8 @@ export class ProveedoresComponent implements OnInit, AfterViewInit{
   }
   
   ngOnInit(): void {
-    //this.obtenerProveedores(); // restablecer despues de pruebas
-    this.obtenerProveedoresMock(); // borrar despues de pruebas
+    this.obtenerProveedores(); // restablecer despues de pruebas
+    //this.obtenerProveedoresMock(); // borrar despues de pruebas
   }
   
   ngAfterViewInit(): void {

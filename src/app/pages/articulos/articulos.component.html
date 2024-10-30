@@ -20,7 +20,7 @@
         <table mat-table [dataSource]="dataListaArticulos">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let element" onclick="{visualizArticulo(element)}"> {{element.id}}</td>
+            <td mat-cell *matCellDef="let element" > {{element.id}}</td>
           </ng-container>
   
           <ng-container matColumnDef="descripcion">

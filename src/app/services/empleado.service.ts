@@ -29,7 +29,7 @@ export class EmpleadoService {
   }
 
   updateEmpleado(id: number, empleado: Empleado): Observable<Empleado> {
-    return this.http.post<Empleado>(`${this.UrlBase}/${id}`, empleado);
+    return this.http.put<Empleado>(`${this.UrlBase}/${id}`, empleado);
   }
 
   deleteEmpleado(id: number): Observable<Empleado> {

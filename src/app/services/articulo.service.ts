@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import { appSettings } from '../settings/appSettings';
 import { Observable } from 'rxjs';
 import { Articulo } from '../models/Articulo';
+import { ArticuloDTO } from '../models/ArticuloDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,12 +22,12 @@ export class ArticuloService {
     return this.http.get<Articulo>(`${this.UrlBase}/${id}`);
   }
 
-  createArticulo(articulo: Articulo): Observable<Articulo> {
-    return this.http.post<Articulo>(`${this.UrlBase}`, articulo);
+  createArticulo(articulo: Articulo): Observable<ArticuloDTO> {
+    return this.http.post<ArticuloDTO>(`${this.UrlBase}`, articulo);
   }
 
   updateArticulo(id: number, articulo: Articulo): Observable<Articulo> {
-    return this.http.post<Articulo>(`${this.UrlBase}/${id}`, articulo);
+    return this.http.put<Articulo>(`${this.UrlBase}/${id}`, articulo);
   }
 
   deleteArticulo(id: number): Observable<Articulo> {

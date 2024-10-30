@@ -18,10 +18,12 @@ export class ArticulosComponent implements OnInit, AfterViewInit {
     // nuevo
     columnasTabla: string[] = ['id','descripcion','marca','modelo','anno','precio', 'stockActual','stockMinimo', 'stockMaximo', 'acciones'];
     dataInicio : Articulo[] = [];
+    
     dataListaArticulos = new MatTableDataSource(this.dataInicio);
   
     @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
     constructor(
+      
       public dialog: MatDialog,
       private _articuloService : ArticuloService,
       private _utilidadService : UtilidadService
@@ -40,16 +42,18 @@ export class ArticulosComponent implements OnInit, AfterViewInit {
         error:(e) => {console.error(e)}
         
       })
+      
     }
   
     // este metodo es para probar la funcionalidad sin base de datos
     obtenerArticulosMock(){
       this.dataListaArticulos.data = articulosLista;
+      
     }
     
     ngOnInit(): void {
-      //this.obtenerArticulos(); // restablecer despues de pruebas
-      this.obtenerArticulosMock(); // borrar despues de pruebas
+      this.obtenerArticulos(); // restablecer despues de pruebas
+      //this.obtenerArticulosMock(); // borrar despues de pruebas
     }
     
     ngAfterViewInit(): void {

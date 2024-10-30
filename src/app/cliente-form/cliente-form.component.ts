@@ -6,6 +6,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
 import { ClienteTipo } from '../interfaces/cliente-tipo';
 import {MatSelectModule} from '@angular/material/select';
+import { ClienteDTO } from '../DTO/ClienteDTO';
 
 @Component({
   selector: 'app-cliente-form',
@@ -62,11 +63,11 @@ export class ClienteFormComponent implements OnInit {
       nombre: this.formGroup.value.nombre,
       apellido: this.formGroup.value.apellido,
       dni: this.formGroup.value.dni,
-      tipo: this.formGroup.value.tipo,
+      tipo: parseInt(this.formGroup.value.tipo),
       telefono: this.formGroup.value.telefono,
       email: this.formGroup.value.email,
       domicilio: this.formGroup.value.domicilio,
-      estado: this.formGroup.value.estado,
+      estado: parseInt(this.formGroup.value.estado),
       // estadoVendedor: parseInt(this.formGroup.value.estadoVendedor)
     }
 
@@ -85,7 +86,20 @@ export class ClienteFormComponent implements OnInit {
         
       })
     } else if(this.datosCliente.tipo == 'editar') {
+
+      //   var clienteDto: ClienteDTO={
+      //   nombre: cliente.nombre,
+      //   apellido: cliente.apellido,
+      //   dni: cliente.dni,
+      //   tipo: cliente.tipo,
+      //   telefono: cliente.telefono,
+      //   email: cliente.email,
+      //   domicilio: cliente.domicilio,
+      //   estado: cliente.estado,
+      // }
+      console.log(cliente);
       this._clienteService.updateCliente(this.datosCliente.cliente.id, cliente).subscribe({
+        
         next: (data) =>{
           if(data!= null){
            this._utilidadService.mostrarAlerta("El cliente fue editado con éxito", "Exito");

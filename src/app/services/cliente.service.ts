@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import { appSettings } from '../settings/appSettings';
 import { Observable } from 'rxjs';
 import { Cliente } from '../models/Cliente';
+import { ClienteDTO } from '../DTO/ClienteDTO';
 
 
 @Injectable({
@@ -28,7 +29,7 @@ export class ClienteService {
   }
 
   updateCliente(id: number, cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.UrlBase}/${id}`, cliente);
+    return this.http.put<Cliente>(`${this.UrlBase}/${id}`, cliente);
   }
 
   deleteCliente(id: number): Observable<Cliente> {

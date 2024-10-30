@@ -30,7 +30,7 @@ export class ProveedorFormComponent implements OnInit{
       this.formGroup = this.fb.group({
         razonSocial: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
         nombre: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
-        cuil:[{value: null , disabled:false},[Validators.required, Validators.maxLength(11), Validators.minLength(8)]], 
+        cuil:[{value: null , disabled:false},[Validators.required, Validators.maxLength(13), Validators.minLength(13)]], 
         domicilio: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
         telefono:[{value: null, disabled:false},[Validators.required, Validators.minLength(8), Validators.maxLength(11)]] ,
         email:[{value: null, disabled:false},[Validators.required, Validators.email]] ,
@@ -76,6 +76,7 @@ export class ProveedorFormComponent implements OnInit{
           
         })
       } else if(this.datosProveedor.tipo == 'editar') {
+        console.log(proveedor);
         this._proveedorService.updateProveedor(this.datosProveedor.proveedor.id, proveedor).subscribe({
           next: (data) =>{
             if(data!= null){

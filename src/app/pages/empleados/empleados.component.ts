@@ -51,8 +51,8 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
   }
   
   ngOnInit(): void {
-    //this.obtenerEmpleados(); // restablecer despues de pruebas
-    this.obtenerEmpleadosMock(); // borrar despues de pruebas
+    this.obtenerEmpleados(); // restablecer despues de pruebas
+    // this.obtenerEmpleadosMock(); // borrar despues de pruebas
   }
   
   ngAfterViewInit(): void {

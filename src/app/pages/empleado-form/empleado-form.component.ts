@@ -49,7 +49,7 @@ export class EmpleadoFormComponent implements OnInit {
 
   guardarEditar(){
     const empleado: Empleado ={
-      id: this.datosEmpleado.empleado == null ? 0 : this.datosEmpleado.id,
+      id: this.datosEmpleado.empleado == null ? 0 : this.datosEmpleado.empleado.Id,
       nombre: this.formGroup.value.nombre,
       apellido: this.formGroup.value.apellido,
       dni: this.formGroup.value.dni,
@@ -61,6 +61,7 @@ export class EmpleadoFormComponent implements OnInit {
 
     if (this.datosEmpleado.tipo == 'crear'){
       console.log(empleado)
+      console.log(empleado.id)
       this._empleadoService.createEmpleado(empleado).subscribe({
         next: (data) =>{
           if(data!= null){
@@ -74,6 +75,7 @@ export class EmpleadoFormComponent implements OnInit {
         
       })
     } else if(this.datosEmpleado.tipo == 'editar') {
+      console.log(empleado)
       this._empleadoService.updateEmpleado(this.datosEmpleado.empleado.id, empleado).subscribe({
         next: (data) =>{
           if(data!= null){
