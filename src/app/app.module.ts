@@ -32,6 +32,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { AsyncPipe } from '@angular/common';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { FacturaDetalleComponent } from './pages/factura-detalle/factura-detalle.component';
+import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
+import { CobranzaFormComponent } from './pages/cobranza-form/cobranza-form.component';
+import { CobranzaDetalleComponent } from './pages/cobranza-detalle/cobranza-detalle.component';
 
 
 @NgModule({
@@ -47,7 +50,10 @@ import { FacturaDetalleComponent } from './pages/factura-detalle/factura-detalle
     ArticuloFormComponent,
     VentaComponent,
     FacturaComponent,
-    FacturaDetalleComponent
+    FacturaDetalleComponent,
+    CobranzasComponent,
+    CobranzaFormComponent,
+    CobranzaDetalleComponent
   ],
   imports: [
     BrowserModule,
