@@ -1,0 +1,41 @@
+<div class="container-fluid mt-4 contenedor-principal">
+
+    <h1 class="titulo">Nueva Venta</h1>
+
+    <mat-card class="card-principal">
+        <form [formGroup]="formularioArticuloVenta" (ngSubmit)="agregarArticuloParaVenta()">
+                <div class="row">
+                    <div class="col-8">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Cliente</mat-label  >
+                            <input matInput type="text" placeholder="Buscar..." formControlName="cliente" [matAutocomplete]="auto2">
+                            <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete"
+                            (optionSelected)="clienteParaVenta($event)"
+                            [displayWith]="mostrarCliente"
+                            >
+                                <mat-option *ngFor="let option of listaClientesFiltro" [value]="option">
+                                    {{option.nombre}} {{option.apellido}} - DNI:{{option.dni}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>producto</mat-label  >
+                            <input matInput type="text" placeholder="Buscar..." formControlName="articulo" [matAutocomplete]="auto">
+                            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                            (optionSelected)="articuloParaVenta($event)"
+                            [displayWith]="mostrarProducto"
+                            >
+                                <mat-option *ngFor="let option of listaArticulosFiltro" [value]="option">
+                                    {{option.descripcion}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
+        </form>
+    </mat-card>
+
+</div>

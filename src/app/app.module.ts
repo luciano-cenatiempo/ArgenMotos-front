@@ -27,6 +27,8 @@ import {MatSelectModule} from '@angular/material/select';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { ProveedorFormComponent } from './pages/proveedor-form/proveedor-form.component';
 import { ArticuloFormComponent } from './pages/articulo-form/articulo-form.component';
+import { VentaComponent } from './pages/venta/venta.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { ArticuloFormComponent } from './pages/articulo-form/articulo-form.compo
     ClienteFormComponent,
     ProveedoresComponent,
     ProveedorFormComponent,
-    ArticuloFormComponent
+    ArticuloFormComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { ArticuloFormComponent } from './pages/articulo-form/articulo-form.compo
     MatIconModule,
     MatDividerModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   exports:[
     MatDialogModule,
@@ -74,7 +78,8 @@ import { ArticuloFormComponent } from './pages/articulo-form/articulo-form.compo
     MatIconModule,
     MatDividerModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

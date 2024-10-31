@@ -4,6 +4,7 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ArticulosComponent } from './pages/articulos/articulos.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
+import { VentaComponent } from './pages/venta/venta.component';
 
 const routes: Routes = [
   {path: 'clientes', component: ClientesComponent},
@@ -11,6 +12,9 @@ const routes: Routes = [
   {path: 'empleados', component: EmpleadosComponent},
   {path: 'proveedores', component: ProveedoresComponent},
   {path: '', component: ArticulosComponent},
+  {path: 'venta', component: VentaComponent},
+
+
   {path: '**', redirectTo: '', pathMatch: 'full'}
 
 
