@@ -10,6 +10,7 @@ import { CobranzaFormComponent } from '../cobranza-form/cobranza-form.component'
 import { CobranzaDto } from 'src/app/models/cobranza-dto';
 import { Cobranza } from 'src/app/models/cobranza';
 import { MetodoPago } from 'src/app/interfaces/metodo-pago';
+import { CobranzaDetalleComponent } from '../cobranza-detalle/cobranza-detalle.component';
 
 @Component({
   selector: 'app-cobranzas',
@@ -109,7 +110,7 @@ export class CobranzasComponent implements OnInit, AfterViewInit {
    }
 
    visualizCobranza(cobranza : Cobranza){
-     this.dialog.open(CobranzaFormComponent, {
+     this.dialog.open(CobranzaDetalleComponent, {
        disableClose:true,
        autoFocus: false,
        closeOnNavigation: false,

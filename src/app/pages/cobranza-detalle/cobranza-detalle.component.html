@@ -1,1 +1,27 @@
-<p>cobranza-detalle works!</p>
+<h1 mat-dialog-title>Detalle de Cobranza </h1>
+
+<div mat-dialog-content>
+    <h2> ID Cobro:  {{datosCobranza.cobranza.id}}</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <span>Fecha: {{datosCobranza.cobranza.fechaCobranza | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <span>ID Factura: {{datosCobranza.cobranza.facturaId}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <span>Metodo Pago: {{datosCobranza.cobranza.metodoPago}}</span>
+            </div>   
+        </div>
+        <h3 class="text-end">Total: {{datosCobranza.cobranza.montoTotal.toFixed(2)}}$</h3>
+    </div>
+    
+    
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="cerrar()">Cerrar</button>
+    
+  </div>
+  
+</div>
