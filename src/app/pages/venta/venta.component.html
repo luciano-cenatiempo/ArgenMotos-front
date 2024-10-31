@@ -5,7 +5,7 @@
     <mat-card class="card-principal">
         <form [formGroup]="formularioArticuloVenta" (ngSubmit)="agregarArticuloParaVenta()">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-md-8 col-sm-12">
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>Cliente</mat-label  >
                             <input matInput type="text" placeholder="Buscar..." formControlName="cliente" [matAutocomplete]="auto2">
@@ -19,7 +19,7 @@
                             </mat-autocomplete>
                         </mat-form-field>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6 col-sm-12">
 
                         <mat-form-field appearance="outline" class="full-width">
                             <mat-label>producto</mat-label  >
@@ -29,13 +29,96 @@
                             [displayWith]="mostrarProducto"
                             >
                                 <mat-option *ngFor="let option of listaArticulosFiltro" [value]="option">
-                                    {{option.descripcion}}
+                                    {{option.descripcion}} - {{option.stockActual}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-6">
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Cantidad</mat-label  >
+                            <input matInput type="text" placeholder="seleccione" formControlName="cantidad" [matAutocomplete]="auto3">
+                            <mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete"
+                            (optionSelected)="cantidadParaVenta($event)"
+                            [displayWith]="mostrarCantidad"
+                            >
+                                <mat-option *ngFor="let option of listaCantidad" [value]="option">
+                                    {{option.text}}
                                 </mat-option>
                             </mat-autocomplete>
                         </mat-form-field>
                     </div>
                 </div>
+                <div class="row justify-content-end">
+                    <div class="col-md-4 col-sm-6">
+
+                        <button mat-raised-button [disabled]="formularioArticuloVenta.invalid || articuloSeleccionado.stockActual == 0 " color="primary" (click)="agregarArticuloParaVenta()">
+                            <mat-icon mat-list-icon>add</mat-icon> Agregar articulo
+                        </button>
+                    </div>
+                </div>
+            <div class="mt-4">
+
+            
+                <div class="row justify-content-end">
+                    <div class="col-md-4 col-sm-6">
+
+                        <!-- <mat-label class="totalPagar">Total: {{totalPagar.toFixed(2)}} $</mat-label  > -->
+                        <h3>Total: {{totalPagar.toFixed(2)}} $</h3>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+
+                        <button mat-raised-button [disabled]="listaArticulosParaVenta.length < 1 && bloquearBoton" color="accent" (click)="registrarFactura()">
+                             Generar factura
+                        </button>
+                    </div>
+                </div>
+            </div>
         </form>
     </mat-card>
+
+    <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="datosDetalleVEnta">
+
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="articulo">
+            <th mat-header-cell *matHeaderCellDef>Articulo</th>
+            <td mat-cell *matCellDef="let element">{{element.articulo.descripcion}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="precio">
+            <th mat-header-cell *matHeaderCellDef>Precio</th>
+            <td mat-cell *matCellDef="let element"> {{element.articulo.precio.toFixed(2)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="total">
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            <td mat-cell *matCellDef="let element"> {{(element.precioUnitario * element.cantidad).toFixed(2)}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef class="columna-acciones"></th>
+            <td mat-cell *matCellDef="let element">
+
+              <button mat-icon-button color="warn" (click)="eliminarArticulo(element)">
+                <mat-icon >delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+          <tr mat-header-row *matRowDef="let row; columns : columnasTabla"></tr>
+
+        </table>
+
+        
+      </div>
 
 </div>

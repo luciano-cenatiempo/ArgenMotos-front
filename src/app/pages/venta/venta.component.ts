@@ -12,6 +12,9 @@ import { FacturaService } from 'src/app/services/factura.service';
 import { Cliente } from 'src/app/models/Cliente';
 import { clientesLista } from '../clientes/clientes.mocks';
 import Swal from 'sweetalert2';
+import { filter, Observable, of, switchMap } from 'rxjs';
+import { CantidadArticulo } from 'src/app/interfaces/cantidad-articulo';
+import { FacturaDto } from 'src/app/models/factura-dto';
 
 
 @Component({
@@ -31,7 +34,11 @@ export class VentaComponent implements OnInit{
 
   articuloSeleccionado!: Articulo
 
+  cantidadSeleccionada!: CantidadArticulo; 
+
   clienteSeleccionado!: Cliente;
+
+  listaCantidad:CantidadArticulo[] = [];
 
   tipoPago: number = 0;
   totalPagar: number = 0;
@@ -74,9 +81,12 @@ export class VentaComponent implements OnInit{
       }
     })
 
+
     this.formularioArticuloVenta.get('articulo')?.valueChanges.subscribe(value =>{
       this.listaArticulosFiltro = this.retornarProductosPorFiltro(value);
     })
+
+    
 
 
     this._clienteService.getAllClientes().subscribe({
@@ -96,6 +106,26 @@ export class VentaComponent implements OnInit{
       this.listaClientesFiltro = this.retornarClientesPorFiltro(value);
     })
 
+    this.formularioArticuloVenta.get('articulo')?.valueChanges.
+    subscribe((value) =>{
+      this.listaCantidad = [];
+      if(value!= null){
+        if(value?.stockActual == 0){
+           this.listaCantidad.push({value: 0 , text: 'Sin stock'})
+        }else{
+          for (let i = 1; i <= value.stockActual ; i++) {
+            this.listaCantidad.push({value:i, text: i.toString()});
+            
+          }
+        }
+      }
+      console.log(this.listaCantidad)
+      console.log(this.articuloSeleccionado)
+
+      console.log(this.formularioArticuloVenta.get('articulo')?.valid)
+      console.log(this.formularioArticuloVenta.get('cantidad')?.valid)
+      console.log(this.formularioArticuloVenta.get('cliente')?.valid)
+    })
 
   }
 
@@ -104,11 +134,22 @@ export class VentaComponent implements OnInit{
   }
 
   mostrarProducto(articulo: Articulo): any{
-    return articulo.descripcion;
+    return articulo ?  articulo.descripcion : '';
+  }
+
+  mostrarCantidad(cantidad: CantidadArticulo): any{
+    return cantidad ? cantidad.text : '';
   }
 
   articuloParaVenta(event: any){
     this.articuloSeleccionado = event.option.value;
+    
+  }
+
+  cantidadParaVenta(event: any){
+    this.cantidadSeleccionada = event.option.value;
+    console.log(this.cantidadSeleccionada)
+    
   }
 
   clienteParaVenta(event: any){
@@ -116,16 +157,23 @@ export class VentaComponent implements OnInit{
   }
 
   agregarArticuloParaVenta(){
-    const cantidad: number = this.formularioArticuloVenta.value.cantidad;
+    console.log(this.cantidadSeleccionada)
+    const cantidad: number = this.cantidadSeleccionada.value;
     const precio: number = this.articuloSeleccionado.precio;
     const total: number = cantidad * precio;
     this.totalPagar  += total;
 
+    this.formularioArticuloVenta.get('cliente')?.disable(); // desactivo la opcion de seleccionar cliente
+
+    // borramos logicamente la cantidad del articulo
+
+
     this.listaArticulosParaVenta.push({
-      articuloId: 0,
+      articuloId: this.articuloSeleccionado.id,
       articulo: this.articuloSeleccionado,
       cantidad: cantidad,
       precioUnitario:precio,
+      
     })
 
     this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
@@ -141,6 +189,11 @@ export class VentaComponent implements OnInit{
     this.listaArticulosParaVenta = this.listaArticulosParaVenta.filter(a => a.articulo.id != detalle.articulo.id);
 
     this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
+
+    if (this.listaArticulosParaVenta.length == 0){
+    this.formularioArticuloVenta.get('cliente')?.enable(); // activo la opcion de seleccionar cliente
+
+    }
   }
 
   registrarFactura(){
@@ -149,14 +202,14 @@ export class VentaComponent implements OnInit{
       
     }
 
-    const factura : Factura = {
-      id: 0,
-      fecha: new Date().toLocaleDateString(),
-      precioFinal: this.totalPagar,
+    const factura : FacturaDto = {
+      fecha: new Date(),
       clienteId: this.clienteSeleccionado.id,
       vendedorId: 1,
       articulos: this.listaArticulosParaVenta
     }
+
+    console.log(JSON.stringify(factura))
 
     this._FacturaService.create(factura).subscribe({
       next:(data)=>{
@@ -179,7 +232,13 @@ export class VentaComponent implements OnInit{
         }
       },
       complete:()=>{
-        this.bloquearBoton = false;
+        if(this.articuloParaVenta.length < 1){
+        this.bloquearBoton = true;
+
+        }else{
+
+          this.bloquearBoton = false;
+        }
       },
       error:(e)=>{
         console.error(e);
@@ -188,7 +247,7 @@ export class VentaComponent implements OnInit{
   }
 
   mostrarCliente(cliente: Cliente): any{
-    return `${cliente.nombre} ${cliente.apellido}`;
+    return cliente ? `${cliente.nombre} ${cliente.apellido}` : '';
   }
 
   retornarProductosPorFiltro(busqueda:any): Articulo[]{
@@ -198,29 +257,6 @@ export class VentaComponent implements OnInit{
   }
 
   retornarClientesPorFiltro(busqueda:any): Cliente[]{
-    // var valorBuscado:any;
-    // if(typeof busqueda === 'string'){
-    //   valorBuscado = busqueda.toLocaleLowerCase();
-    // } else{
-    //   valorBuscado = busqueda;
-    // }
-    // var listaFiltrada : Cliente[] = [];
-    // this.listaClientes.forEach(cliente => {
-    //   console.log(cliente)
-    //   if (cliente.nombre.includes(valorBuscado)){
-    //     console.log(cliente)
-    //     listaFiltrada.push(cliente);
-    //   }
-    // });
-
-    // console.log(valorBuscado)
-    // console.log(listaFiltrada)
-    // if(valorBuscado == ''){
-    //   return this.listaClientes
-    // } else{
-
-    //   return listaFiltrada
-    // }
 
     const valorBuscado = typeof busqueda === 'string' ? busqueda.toLocaleLowerCase(): busqueda.apellido.toLocaleLowerCase();
     console.log(busqueda)

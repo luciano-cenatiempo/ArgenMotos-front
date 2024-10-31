@@ -5,12 +5,14 @@ import { ArticulosComponent } from './pages/articulos/articulos.component';
 import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { VentaComponent } from './pages/venta/venta.component';
+import { FacturaComponent } from './pages/factura/factura.component';
 
 const routes: Routes = [
   {path: 'clientes', component: ClientesComponent},
   {path: 'articulos', component: ArticulosComponent},
   {path: 'empleados', component: EmpleadosComponent},
   {path: 'proveedores', component: ProveedoresComponent},
+  {path: 'facturas', component: FacturaComponent},
   {path: '', component: ArticulosComponent},
   {path: 'venta', component: VentaComponent},
 

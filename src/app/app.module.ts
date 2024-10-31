@@ -29,6 +29,9 @@ import { ProveedorFormComponent } from './pages/proveedor-form/proveedor-form.co
 import { ArticuloFormComponent } from './pages/articulo-form/articulo-form.component';
 import { VentaComponent } from './pages/venta/venta.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { AsyncPipe } from '@angular/common';
+import { FacturaComponent } from './pages/factura/factura.component';
+import { FacturaDetalleComponent } from './pages/factura-detalle/factura-detalle.component';
 
 
 @NgModule({
@@ -42,7 +45,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ProveedoresComponent,
     ProveedorFormComponent,
     ArticuloFormComponent,
-    VentaComponent
+    VentaComponent,
+    FacturaComponent,
+    FacturaDetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDividerModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AsyncPipe
   ],
   exports:[
     MatDialogModule,
@@ -79,7 +85,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatDividerModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AsyncPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

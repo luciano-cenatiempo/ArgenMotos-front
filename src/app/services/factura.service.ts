@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { appSettings } from '../settings/appSettings';
 import { Factura } from '../models/factura';
 import { Observable } from 'rxjs';
+import { FacturaDto } from '../models/factura-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class FacturaService {
   private http = inject(HttpClient);
 
-  private UrlBase: string = appSettings.apiUrl + 'factura';
+  private UrlBase: string = appSettings.apiUrl + 'facturas';
 
   constructor() { }
 
@@ -22,7 +23,7 @@ export class FacturaService {
     return this.http.get<Factura>(`${this.UrlBase}/${id}`);
   }
 
-  create(articulo: Factura): Observable<Factura> {
-    return this.http.post<Factura>(`${this.UrlBase}`, articulo);
+  create(factura: FacturaDto): Observable<Factura> {
+    return this.http.post<Factura>(`${this.UrlBase}`, factura);
   }
 }
