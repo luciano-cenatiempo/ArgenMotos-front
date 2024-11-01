@@ -7,6 +7,7 @@ import { ProveedoresComponent } from './pages/proveedores/proveedores.component'
 import { VentaComponent } from './pages/venta/venta.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
+import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
 
 const routes: Routes = [
   {path: 'clientes', component: ClientesComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: '', component: ArticulosComponent},
   {path: 'venta', component: VentaComponent},
   {path: 'cobranzas', component: CobranzasComponent},
+  {path: 'realizar-oc', component: RealizarOCComponent},
 
 
   {path: '**', redirectTo: '', pathMatch: 'full'}

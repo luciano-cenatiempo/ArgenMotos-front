@@ -1,0 +1,78 @@
+.titulo{
+    margin: 20px 40px 40px 40px;
+}
+.card-principal{
+    margin: 10px 40px 40px 40px;
+    padding: 10px;
+}
+
+/* .columna-acciones{
+    width: 80px;
+    display: flex;
+} */
+
+.card-title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+table{
+    width: 100%;
+    overflow-x: auto;
+}
+
+mat-form-field{
+    width: 100%;
+    font-size: 14px;
+
+    margin-top: 10px;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
+/*Nuevo*/
+  
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  mat-table {
+   width: 1200px;
+   max-width: 1200px;
+   margin-bottom: 1rem;
+   display: table;
+   border-collapse: collapse;
+   margin: 0px;
+  }
+  
+  mat-row,
+  mat-header-row {
+    display: table-row;
+  }
+  mat-cell,
+  mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  th{
+    background-color: #77CDFF!important;
+    
+  }
+
+  mat-card{
+    background-color: #EDE8DC!important;
+  }
+
+  

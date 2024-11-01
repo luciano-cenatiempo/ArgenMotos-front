@@ -109,14 +109,16 @@ export class CobranzaFormComponent {
        this._cobranzaService.updateCobranza(this.datosCobranza.cobranza.id, cobranza).subscribe({
          next: (data) =>{
            if(data!= null){
-            this._utilidadService.mostrarAlerta("El vendedor fue editado con éxito", "Exito");
+            this._utilidadService.mostrarAlerta("El cobro fue editado con éxito", "Exito");
              this.dialogRef.close("true")
            } else{
-            this._utilidadService.mostrarAlerta("No se pudo editar el vendedor", "Error");
+            this._utilidadService.mostrarAlerta("No se pudo editar el cobro", "Error");
            }
          },
-         error:(e) => {console.error(e)}
-         
+         error:(e) => {
+          console.error(e)
+          this._utilidadService.mostrarAlerta("No se pudo editar el cobro", "Error");
+         }
        })
      }
  
@@ -127,25 +129,15 @@ export class CobranzaFormComponent {
      
  
      if(this.datosCobranza.cobranza != null){
+      console.log(this.datosCobranza.factura)
        this.formGroup.patchValue({
-         nombre: this.datosCobranza.cobranza.nombre,
-         apellido: this.datosCobranza.cobranza.apellido,
-         dni: this.datosCobranza.cobranza.dni,
-         telefono: this.datosCobranza.cobranza.telefono,
-         email: this.datosCobranza.cobranza.email,
-         estado: this.datosCobranza.cobranza.estado
-   
+         factura: this.datosCobranza.cobranza.facturaId,
+         metodoPago: this.datosCobranza.cobranza.metodoPago,
+         fechaCobranza: new Date(),
+         
        })
+       
  
-       if(this.datosCobranza.tipo == 'visualizar'){
-         this.formGroup.controls['nombre'].disable();
-         this.formGroup.controls['apellido'].disable();
-         this.formGroup.controls['dni'].disable();
-         this.formGroup.controls['telefono'].disable();
-         this.formGroup.controls['email'].disable();
-         this.formGroup.controls['estado'].disable();
-  
-       }
      }
      
    }

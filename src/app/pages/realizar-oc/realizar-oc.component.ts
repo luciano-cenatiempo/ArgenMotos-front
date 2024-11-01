@@ -4,39 +4,37 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { Factura } from 'src/app/models/factura';
-import { FacturaArticulo } from 'src/app/models/factura-articulo';
+import {  ProveedorService } from 'src/app/services/proveedor.service';
 import { Articulo } from 'src/app/models/Articulo';
-import { FacturaService } from 'src/app/services/factura.service';
 import { Cliente } from 'src/app/models/Cliente';
 import { clientesLista } from '../clientes/clientes.mocks';
 import Swal from 'sweetalert2';
 import { filter, Observable, of, switchMap } from 'rxjs';
 import { CantidadArticulo } from 'src/app/interfaces/cantidad-articulo';
-import { FacturaDto } from 'src/app/models/factura-dto';
-
+import { Proveedor } from 'src/app/models/Proveedor';
+import { OrdenCompraService } from 'src/app/services/orden-compra.service';
+import { OrdenCompraArticulo } from 'src/app/models/orden-compra-articulo';
+import { OrdenCompraDTO } from 'src/app/models/orden-compra-dto';
 
 @Component({
-  selector: 'app-venta',
-  templateUrl: './venta.component.html',
-  styleUrls: ['./venta.component.css']
+  selector: 'app-realizar-oc',
+  templateUrl: './realizar-oc.component.html',
+  styleUrls: ['./realizar-oc.component.css']
 })
-export class VentaComponent implements OnInit{
-
+export class RealizarOCComponent {
   listaArticulos: Articulo[] = [];
   listaArticulosFiltro: Articulo[] = [];
 
-  listaClientes: Cliente[] = [];
-  listaClientesFiltro: Cliente[] = [];
+  listaProveedores: Proveedor[] = [];
+  listaProveedoresFiltro: Proveedor[] = [];
 
-  listaArticulosParaVenta: FacturaArticulo[] = [];
+  listaArticulosParaOrden: OrdenCompraArticulo[] = [];
 
   articuloSeleccionado!: Articulo
 
   cantidadSeleccionada!: CantidadArticulo; 
 
-  clienteSeleccionado!: Cliente;
+  proveedorSeleccionado!: Proveedor;
 
   listaCantidad:CantidadArticulo[] = [];
 
@@ -45,23 +43,23 @@ export class VentaComponent implements OnInit{
   bloquearBoton: boolean = false;
   
 
-  formularioArticuloVenta: FormGroup;
+  formularioArticuloOrden: FormGroup;
   columnasTabla: string[] = ['cantidad','articulo','precio','total','accion'];
-  datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
+  datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaOrden);
 
 
 
   constructor(
     private fb: FormBuilder,
     private _articuloService:ArticuloService,
-    private _FacturaService: FacturaService,
     private _utilidadesService: UtilidadService,
-    private _clienteService: ClienteService 
+    private _proveedorService: ProveedorService,
+    private _ordenCompraService: OrdenCompraService
   ){
 
     // Formulario articulos
-    this.formularioArticuloVenta = this.fb.group({
-      cliente:[{value: null , disabled:false},[Validators.required]],
+    this.formularioArticuloOrden = this.fb.group({
+      proveedor:[{value: null , disabled:false},[Validators.required]],
       articulo: [{value: null , disabled:false},[Validators.required]],
       cantidad: [{value: null , disabled:false},[Validators.required]],
 
@@ -82,18 +80,18 @@ export class VentaComponent implements OnInit{
     })
 
 
-    this.formularioArticuloVenta.get('articulo')?.valueChanges.subscribe(value =>{
+    this.formularioArticuloOrden.get('articulo')?.valueChanges.subscribe(value =>{
       this.listaArticulosFiltro = this.retornarProductosPorFiltro(value);
     })
 
     
 
 
-    this._clienteService.getAllClientes().subscribe({
+    this._proveedorService.getAllProveedores().subscribe({
       next:(data)=>{
         if(data!= null){
-          const lista = data as Cliente[];
-          this.listaClientes = lista; // aca podria aplicar filtros con el filter lista.filter(p=>.esActivo == 1)
+          const lista = data as Proveedor[];
+          this.listaProveedores = lista; // aca podria aplicar filtros con el filter lista.filter(p=>.esActivo == 1)
 
         }
       },
@@ -102,11 +100,11 @@ export class VentaComponent implements OnInit{
       }
     })
 
-    this.formularioArticuloVenta.get('cliente')?.valueChanges.subscribe(value =>{
-      this.listaClientesFiltro = this.retornarClientesPorFiltro(value);
+    this.formularioArticuloOrden.get('proveedor')?.valueChanges.subscribe(value =>{
+      this.listaProveedoresFiltro = this.retornarProveedoresPorFiltro(value);
     })
 
-    this.formularioArticuloVenta.get('articulo')?.valueChanges.
+    this.formularioArticuloOrden.get('articulo')?.valueChanges.
     subscribe((value) =>{
       this.listaCantidad = [];
       if(value!= null){
@@ -122,9 +120,9 @@ export class VentaComponent implements OnInit{
       console.log(this.listaCantidad)
       console.log(this.articuloSeleccionado)
 
-      console.log(this.formularioArticuloVenta.get('articulo')?.valid)
-      console.log(this.formularioArticuloVenta.get('cantidad')?.valid)
-      console.log(this.formularioArticuloVenta.get('cliente')?.valid)
+      console.log(this.formularioArticuloOrden.get('articulo')?.valid)
+      console.log(this.formularioArticuloOrden.get('cantidad')?.valid)
+      console.log(this.formularioArticuloOrden.get('proveedor')?.valid)
     })
 
   }
@@ -141,35 +139,35 @@ export class VentaComponent implements OnInit{
     return cantidad ? cantidad.text : '';
   }
 
-  articuloParaVenta(event: any){
+  articuloParaOrden(event: any){
     this.articuloSeleccionado = event.option.value;
     
   }
   
 
-  cantidadParaVenta(event: any){
+  cantidadParaOrden(event: any){
     this.cantidadSeleccionada = event.option.value;
     console.log(this.cantidadSeleccionada)
     
   }
 
-  clienteParaVenta(event: any){
-    this.clienteSeleccionado = event.option.value;
+  proveedorParaOrden(event: any){
+    this.proveedorSeleccionado = event.option.value;
   }
 
-  agregarArticuloParaVenta(){
+  agregarArticuloParaOrden(){
     console.log(this.cantidadSeleccionada)
     const cantidad: number = this.cantidadSeleccionada.value;
     const precio: number = this.articuloSeleccionado.precio;
     const total: number = cantidad * precio;
     this.totalPagar  += total;
 
-    this.formularioArticuloVenta.get('cliente')?.disable(); // desactivo la opcion de seleccionar cliente
+    this.formularioArticuloOrden.get('proveedor')?.disable(); // desactivo la opcion de seleccionar proveedor
 
     // borramos logicamente la cantidad del articulo
 
 
-    this.listaArticulosParaVenta.push({
+    this.listaArticulosParaOrden.push({
       articuloId: this.articuloSeleccionado.id,
       articulo: this.articuloSeleccionado,
       cantidad: cantidad,
@@ -177,67 +175,77 @@ export class VentaComponent implements OnInit{
       
     })
 
-    this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
+    this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaOrden);
 
-    this.formularioArticuloVenta.patchValue({
+    this.formularioArticuloOrden.patchValue({
       articulo:"",
       cantidad: 0
     })
   }
 
-  eliminarArticulo(detalle: FacturaArticulo){
+  eliminarArticulo(detalle: OrdenCompraArticulo){
     this.totalPagar = this.totalPagar - (detalle.precioUnitario * detalle.cantidad);
-    this.listaArticulosParaVenta = this.listaArticulosParaVenta.filter(a => a.articulo.id != detalle.articulo.id);
+    this.listaArticulosParaOrden = this.listaArticulosParaOrden.filter(a => a.articulo.id != detalle.articulo.id);
 
-    this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
+    this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaOrden);
 
-    if (this.listaArticulosParaVenta.length == 0){
-    this.formularioArticuloVenta.get('cliente')?.enable(); // activo la opcion de seleccionar cliente
+    if (this.listaArticulosParaOrden.length == 0){
+    this.formularioArticuloOrden.get('proveedor')?.enable(); // activo la opcion de seleccionar proveedor
 
     }
   }
 
-  registrarFactura(){
-    if(this.listaArticulosParaVenta.length > 0){
+  registrarOrden(){
+    if(this.listaArticulosParaOrden.length > 0){
       this.bloquearBoton = true;
       
     }
 
-    const factura : FacturaDto = {
+    const ordenCompra : OrdenCompraDTO = {
       fecha: new Date(),
-      clienteId: this.clienteSeleccionado.id,
-      vendedorId: 1,
-      articulos: this.listaArticulosParaVenta
+      proveedorId: this.proveedorSeleccionado.id,
+      estado: 1,
+      articulos: this.listaArticulosParaOrden
     }
 
-    console.log(JSON.stringify(factura))
+    console.log(JSON.stringify(ordenCompra))
 
-    this._FacturaService.create(factura).subscribe({
+    this._ordenCompraService.create(ordenCompra).subscribe({
       next:(data)=>{
         if(data!= null){
           this.totalPagar = 0;
-          this.listaArticulosParaVenta = [];
-          this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
+          this.listaArticulosParaOrden = [];
+          this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaOrden);
 
           Swal.fire({
             icon: 'success',
-            title: 'Factura realizada',
-            text: `Numero de venta: ${data.id}`
+            title: 'Orden de compra realizada',
+            text: `Numero de Orden: ${data.id}`
           })
         }else {
           Swal.fire({
             icon: 'error',
             title: 'Se produjo un error',
-            text: `No se pudo registrar la factura, intente nuevamente`
+            text: `No se pudo registrar la orden de Compra, intente nuevamente`
           })
         }
       },
       complete:()=>{
         this.bloquearBoton = false;
-        this.formularioArticuloVenta.reset();
-        this.listaArticulosParaVenta = [];
-        this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
-        this.formularioArticuloVenta.get('cliente')?.enable(); // activo la opcion de seleccionar proveedor
+        this.formularioArticuloOrden.reset();
+        this.listaArticulosParaOrden = [];
+        this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaOrden);
+        this.formularioArticuloOrden.get('proveedor')?.enable(); // activo la opcion de seleccionar proveedor
+
+        // if(this.articuloParaOrden.length < 1){
+        // this.bloquearBoton = false;
+        // this.formularioArticuloOrden.reset();
+        
+          
+        // }else{
+
+        //   this.bloquearBoton = false;
+        // }
       },
       error:(e)=>{
         console.error(e);
@@ -245,8 +253,8 @@ export class VentaComponent implements OnInit{
     });
   }
 
-  mostrarCliente(cliente: Cliente): any{
-    return cliente ? `${cliente.nombre} ${cliente.apellido}` : '';
+  mostrarProveedor(proveedor: Proveedor): any{
+    return proveedor ? `${proveedor.nombre}` : '';
   }
 
   retornarProductosPorFiltro(busqueda:any): Articulo[]{
@@ -255,11 +263,11 @@ export class VentaComponent implements OnInit{
     return this.listaArticulos.filter(item => item.descripcion.toLocaleLowerCase().includes(valorBuscado))
   }
 
-  retornarClientesPorFiltro(busqueda:any): Cliente[]{
+  retornarProveedoresPorFiltro(busqueda:any): Proveedor[]{
 
-    const valorBuscado = typeof busqueda === 'string' ? busqueda.toLocaleLowerCase(): busqueda.apellido.toLocaleLowerCase();
+    const valorBuscado = typeof busqueda === 'string' ? busqueda.toLocaleLowerCase(): busqueda.nombre.toLocaleLowerCase();
     console.log(busqueda)
-    return this.listaClientes.filter(item => item.apellido.toLocaleLowerCase().includes(valorBuscado) || item.nombre.toLocaleLowerCase().includes(valorBuscado) || item.dni.toLocaleLowerCase().includes(valorBuscado) )
+    return this.listaProveedores.filter(item => item.nombre.toLocaleLowerCase().includes(valorBuscado))
 
   }
 }

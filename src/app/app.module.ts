@@ -35,6 +35,7 @@ import { FacturaDetalleComponent } from './pages/factura-detalle/factura-detalle
 import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
 import { CobranzaFormComponent } from './pages/cobranza-form/cobranza-form.component';
 import { CobranzaDetalleComponent } from './pages/cobranza-detalle/cobranza-detalle.component';
+import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { CobranzaDetalleComponent } from './pages/cobranza-detalle/cobranza-deta
     FacturaDetalleComponent,
     CobranzasComponent,
     CobranzaFormComponent,
-    CobranzaDetalleComponent
+    CobranzaDetalleComponent,
+    RealizarOCComponent
   ],
   imports: [
     BrowserModule,
