@@ -13,6 +13,7 @@ import { Articulo } from 'src/app/models/Articulo';
 import { ArticuloService } from 'src/app/services/articulo.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { FacturaDetalleComponent } from '../factura-detalle/factura-detalle.component';
+import { OtrosComprobantesRealizarComponent } from '../otros-comprobantes-realizar/otros-comprobantes-realizar.component';
 
 @Component({
   selector: 'app-factura',
@@ -88,11 +89,11 @@ export class FacturaComponent implements OnInit, AfterViewInit {
       })
     }
   
-    editarFactura(cliente : Factura){
+    editarFactura(factura : Factura){
       // casteo de clientes tipo
       console.log(this.dataListaFacturas);  
-      console.log(cliente);
-      this.dialog.open(FacturaDetalleComponent, {
+      console.log(factura);
+      this.dialog.open(OtrosComprobantesRealizarComponent, {
         disableClose:true,
         autoFocus: true,
         closeOnNavigation: false,
@@ -103,7 +104,7 @@ export class FacturaComponent implements OnInit, AfterViewInit {
         data: {
           // para pasarle todos los tipos de propiedades que queremos usar
           tipo: 'editar',
-          cliente: cliente
+          factura: factura
         }
       }).afterClosed().subscribe(resultado =>{
         if(resultado == 'true') this.obtenerFacturas();
@@ -128,6 +129,7 @@ export class FacturaComponent implements OnInit, AfterViewInit {
         if(resultado == 'true') this.obtenerFacturas();
       })
     }
+
   
   
     

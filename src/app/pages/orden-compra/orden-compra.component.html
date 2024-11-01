@@ -1,11 +1,11 @@
 <div class="container-fluid mt-4">
 
-    <h1 class="titulo">Facturas</h1>
+    <h1 class="titulo">Ordenes de Compra</h1>
   
     <mat-card class="card-principal">
       <mat-card-title class="card-title">
-        <button mat-raised-button color="primary" routerLink="../venta">
-          <mat-icon mat-list-icon>add</mat-icon> Nueva venta
+        <button mat-raised-button color="primary" routerLink="../realizar-oc">
+          <mat-icon mat-list-icon>add</mat-icon> Nueva Orden de compra
         </button>
       </mat-card-title>
       <mat-divider></mat-divider>
@@ -17,20 +17,10 @@
   
         
       <div class="mat-elevation-z2 table-responsive">
-        <table mat-table [dataSource]="dataListaFacturas">
+        <table mat-table [dataSource]="dataListaOrdenes">
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let element" > {{element.id}}</td>
-          </ng-container>
-          
-            <ng-container matColumnDef="cliente">
-            <th mat-header-cell *matHeaderCellDef>Cliente ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.clienteId}} </td>
-          </ng-container>
-  
-          <ng-container matColumnDef="vendedor">
-            <th mat-header-cell *matHeaderCellDef>Vendedor ID</th>
-            <td mat-cell *matCellDef="let element"> {{element.vendedorId}} </td>
           </ng-container>
 
           <ng-container matColumnDef="fecha">
@@ -38,19 +28,31 @@
             <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}}</td>
           </ng-container>
   
+          <ng-container matColumnDef="proveedorId">
+            <th mat-header-cell *matHeaderCellDef>ID proveedor<th>
+            <td mat-cell *matCellDef="let element"> {{element.proveedorId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef>Estado<th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+
+          
+  
           <ng-container matColumnDef="total">
             <th mat-header-cell *matHeaderCellDef>Monto</th>
-            <td mat-cell *matCellDef="let element"> {{element.precioFinal.toFixed(2)}} $</td>
+            <td mat-cell *matCellDef="let element"> {{element.precioTotal.toFixed(2)}} $</td>
           </ng-container>
   
           <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef class="columna-acciones"> </th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="visualizarFactura(element)">
+              <button mat-icon-button color="primary" (click)="visualizarOrden(element)">
                 <mat-icon >search</mat-icon>
               </button>
-              <button mat-icon-button color="primary" (click)="editarFactura(element)">
-                <mat-icon >edit</mat-icon>
+              <button mat-icon-button color="warn" (click)="eliminarOrden(element)">
+                <mat-icon >delete</mat-icon>
               </button>
             </td>
           </ng-container>

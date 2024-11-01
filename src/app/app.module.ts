@@ -36,6 +36,11 @@ import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
 import { CobranzaFormComponent } from './pages/cobranza-form/cobranza-form.component';
 import { CobranzaDetalleComponent } from './pages/cobranza-detalle/cobranza-detalle.component';
 import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
+import { OrdenCompraFormComponent } from './pages/orden-compra-form/orden-compra-form.component';
+import { OrdenCompraComponent } from './pages/orden-compra/orden-compra.component';
+import { OrdenCompraDetalleComponent } from './pages/orden-compra-detalle/orden-compra-detalle.component';
+import { OtrosComprobantesComponent } from './pages/otros-comprobantes/otros-comprobantes.component';
+import { OtrosComprobantesRealizarComponent } from './pages/otros-comprobantes-realizar/otros-comprobantes-realizar.component';
 
 
 @NgModule({
@@ -55,7 +60,12 @@ import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
     CobranzasComponent,
     CobranzaFormComponent,
     CobranzaDetalleComponent,
-    RealizarOCComponent
+    RealizarOCComponent,
+    OrdenCompraFormComponent,
+    OrdenCompraComponent,
+    OrdenCompraDetalleComponent,
+    OtrosComprobantesComponent,
+    OtrosComprobantesRealizarComponent
   ],
   imports: [
     BrowserModule,

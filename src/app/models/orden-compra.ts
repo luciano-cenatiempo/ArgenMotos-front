@@ -8,3 +8,4 @@ export interface OrdenCompra {
     proveedorId: number,
     articulos: OrdenCompraArticulo[]
 }
+
