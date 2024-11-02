@@ -108,10 +108,11 @@ export class RealizarOCComponent {
     subscribe((value) =>{
       this.listaCantidad = [];
       if(value!= null){
-        if(value?.stockActual == 0){
-           this.listaCantidad.push({value: 0 , text: 'Sin stock'})
+        if((value?.stockMaximo - value?.stockActual) == 0){
+           this.listaCantidad.push({value: 0 , text: 'Stock completo'})
         }else{
-          for (let i = 1; i <= value.stockActual ; i++) {
+          var maximaPermitida = value.stockMaximo - value.stockActual
+          for (let i = 1; i <= maximaPermitida ; i++) {
             this.listaCantidad.push({value:i, text: i.toString()});
             
           }
@@ -204,7 +205,7 @@ export class RealizarOCComponent {
     const ordenCompra : OrdenCompraDTO = {
       fecha: new Date(),
       proveedorId: this.proveedorSeleccionado.id,
-      estado: 1,
+      estado: 0,
       articulos: this.listaArticulosParaOrden
     }
 

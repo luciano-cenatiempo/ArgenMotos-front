@@ -25,8 +25,8 @@ export class OrdenCompraService {
     return this.http.post<OrdenCompra>(`${this.UrlBase}`, ordenCompra);
   }
 
-  update(ordenCompra: OrdenCompraDTO): Observable<OrdenCompra> {
-    return this.http.put<OrdenCompra>(`${this.UrlBase}`, ordenCompra);
+  update(id: number, ordenCompra: OrdenCompraDTO): Observable<OrdenCompra> {
+    return this.http.put<OrdenCompra>(`${this.UrlBase}/${id}`, ordenCompra);
   }
 
   delete(id: number): Observable<OrdenCompra> {

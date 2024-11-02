@@ -41,6 +41,11 @@ import { OrdenCompraComponent } from './pages/orden-compra/orden-compra.componen
 import { OrdenCompraDetalleComponent } from './pages/orden-compra-detalle/orden-compra-detalle.component';
 import { OtrosComprobantesComponent } from './pages/otros-comprobantes/otros-comprobantes.component';
 import { OtrosComprobantesRealizarComponent } from './pages/otros-comprobantes-realizar/otros-comprobantes-realizar.component';
+import { OtroComprobanteDetalleComponent } from './pages/otro-comprobante-detalle/otro-comprobante-detalle.component';
+import { TipoComprobantePipe } from './pipes/tipo-comprobante.pipe';
+import { EstadoPipe } from './pipes/estado.pipe';
+import { MetodoPagoPipe } from './pipes/metodo-pago.pipe';
+import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
 
 
 @NgModule({
@@ -65,7 +70,12 @@ import { OtrosComprobantesRealizarComponent } from './pages/otros-comprobantes-r
     OrdenCompraComponent,
     OrdenCompraDetalleComponent,
     OtrosComprobantesComponent,
-    OtrosComprobantesRealizarComponent
+    OtrosComprobantesRealizarComponent,
+    OtroComprobanteDetalleComponent,
+    TipoComprobantePipe,
+    EstadoPipe,
+    MetodoPagoPipe,
+    OrdenEstadoPipe
   ],
   imports: [
     BrowserModule,

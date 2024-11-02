@@ -9,6 +9,7 @@ import { FacturaComponent } from './pages/factura/factura.component';
 import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
 import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
 import { OrdenCompraComponent } from './pages/orden-compra/orden-compra.component';
+import { OtrosComprobantesComponent } from './pages/otros-comprobantes/otros-comprobantes.component';
 
 const routes: Routes = [
   {path: 'clientes', component: ClientesComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'cobranzas', component: CobranzasComponent},
   {path: 'realizar-oc', component: RealizarOCComponent},
   {path: 'ordenes-compra', component: OrdenCompraComponent},
+  {path: 'otros-comprobantes', component: OtrosComprobantesComponent},
 
 
   {path: '**', redirectTo: '', pathMatch: 'full'}

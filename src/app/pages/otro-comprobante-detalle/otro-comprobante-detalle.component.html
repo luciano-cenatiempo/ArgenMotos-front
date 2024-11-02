@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{tipoComprobante}} </h1>
+
+<div mat-dialog-content>
+    <h2> ID Comprobante: {{datosComprobante.comprobante.id}}</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <span>Fecha: {{datosComprobante.comprobante.fecha | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <span>ID Factura asociada: {{datosComprobante.comprobante.facturaId}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <span>ID Cliente: {{datosComprobante.comprobante.clienteId}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <span>ID Vendedor: {{datosComprobante.comprobante.vendedorId}}</span>
+            </div>   
+        </div>
+    </div>
+    <h2>Detalle: </h2>
+    <div class="container-fluid">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td>{{datosComprobante.comprobante.descripcion}}</td>
+                <td>{{datosComprobante.comprobante.monto.toFixed(2)}} $</td>
+              </tr>          
+            </tbody>
+            
+          </table>
+          <hr/>
+    <div>
+
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="cerrar()">Cerrar</button>
+    
+  </div>
+  
+</div>

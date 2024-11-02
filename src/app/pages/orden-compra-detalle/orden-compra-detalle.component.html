@@ -7,6 +7,9 @@
             <div class="col-md-12 col-sm-12">
                 <span>Fecha: {{datosOrden.orden.fecha | date: 'dd/MM/yyyy'}}</span>
             </div>
+            <div class="col-md-12 col-sm-12">
+              <span>Estado: {{datosOrden.orden.estado | ordenEstado}}</span>
+            </div>
             <div class="col-md-6 col-sm-12">
                 <span>ID Proveedor: {{datosOrden.orden.proveedorId}}</span>
             </div>

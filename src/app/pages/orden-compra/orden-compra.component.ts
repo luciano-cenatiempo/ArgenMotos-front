@@ -16,6 +16,8 @@ import { OrdenCompraService } from 'src/app/services/orden-compra.service';
 import { OrdenCompra } from 'src/app/models/orden-compra';
 import { Factura } from 'src/app/models/factura';
 import { OrdenCompraDetalleComponent } from '../orden-compra-detalle/orden-compra-detalle.component';
+import { OrdenCompraFormComponent } from '../orden-compra-form/orden-compra-form.component';
+import { OrdenEstado } from 'src/app/interfaces/orden-estado';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class OrdenCompraComponent {
       columnasTabla: string[] = ['id','fecha','proveedorId','estado','total','acciones'];
       dataInicio : OrdenCompra[] = [];
       dataListaOrdenes = new MatTableDataSource(this.dataInicio);
+
+      
     
       @ViewChild(MatPaginator) paginacionTabla!: MatPaginator;
       constructor(
@@ -93,10 +97,11 @@ export class OrdenCompraComponent {
     
       editarOrden(orden : OrdenCompra){
         // casteo de clientes tipo
+        console.log(orden)
         
-        this.dialog.open(OrdenCompraDetalleComponent, {
+        this.dialog.open(OrdenCompraFormComponent, {
           disableClose:true,
-          autoFocus: true,
+          autoFocus: false,
           closeOnNavigation: false,
           position: {
             top:'30px'
@@ -113,6 +118,7 @@ export class OrdenCompraComponent {
       }
   
       visualizarOrden(orden : OrdenCompra){
+        
         this.dialog.open(OrdenCompraDetalleComponent, {
           disableClose:true,
           autoFocus: false,

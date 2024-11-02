@@ -54,7 +54,7 @@
                 <div class="row justify-content-end">
                     <div class="col-md-4 col-sm-6">
 
-                        <button mat-raised-button [disabled]="formularioArticuloOrden.invalid || articuloSeleccionado.stockActual == 0 " color="primary" (click)="agregarArticuloParaOrden()">
+                        <button mat-raised-button [disabled]="formularioArticuloOrden.invalid || articuloSeleccionado.stockMaximo - articuloSeleccionado.stockActual == 0 " color="primary" (click)="agregarArticuloParaOrden()">
                             <mat-icon mat-list-icon>add</mat-icon> Agregar articulo
                         </button>
                     </div>
