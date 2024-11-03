@@ -7,8 +7,14 @@
             <div class="col-md-12 col-sm-12">
                 <span>Fecha: {{datosFactura.factura.fecha | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" *ngIf="!mostrarDatosCLiente">
                 <span>ID Cliente: {{datosFactura.factura.clienteId}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12" *ngIf="mostrarDatosCLiente">
+              <span>Cliente: {{cliente?.nombre}} {{cliente?.apellido}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12" *ngIf="mostrarDatosCLiente">
+              <span>DNI: {{cliente?.dni}}</span>
             </div>
             <div class="col-md-6 col-sm-12">
                 <span>ID Vendedor: {{datosFactura.factura.vendedorId}}</span>

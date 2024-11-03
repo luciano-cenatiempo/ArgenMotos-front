@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Cliente } from 'src/app/models/Cliente';
 import { Empleado, EstadoVendedor } from 'src/app/models/Empleado';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
@@ -14,6 +15,8 @@ import { UtilidadService } from 'src/app/services/utilidad.service';
 export class OtroComprobanteDetalleComponent {
   
   public tipoComprobante?: string;
+  cliente?:Cliente;
+  mostrarDatosCLiente: boolean = false
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public datosComprobante: any, // para pasar data desde el componente padre
@@ -25,6 +28,7 @@ export class OtroComprobanteDetalleComponent {
     
   ){
     this.transformarTipoComprobante();
+    this.buscarCliente();
   }
 
 
@@ -39,5 +43,25 @@ export class OtroComprobanteDetalleComponent {
       this.tipoComprobante = 'Nota de Credito'
 
     }
+  }
+
+  buscarCliente(){
+    this._clienteService.getClienteById(this.datosComprobante.comprobante.clienteId).subscribe({
+      next: (data) =>{
+        if(data!= null){
+          this.cliente = data;
+          this.mostrarDatosCLiente = true;
+        } else {
+          this.mostrarDatosCLiente = false;
+          
+        }
+      },
+      error:(e) => {
+        console.error(e)
+        this.mostrarDatosCLiente = false;
+        
+      }
+
+    })
   }
 }

@@ -7,11 +7,17 @@
             <div class="col-md-12 col-sm-12">
                 <span>Fecha: {{datosComprobante.comprobante.fecha | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-12 col-sm-12">
                 <span>ID Factura asociada: {{datosComprobante.comprobante.facturaId}}</span>
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" *ngIf="!mostrarDatosCLiente">
                 <span>ID Cliente: {{datosComprobante.comprobante.clienteId}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12" *ngIf="mostrarDatosCLiente">
+              <span>Cliente: {{cliente?.nombre}} {{cliente?.apellido}}</span>
+            </div>
+            <div class="col-md-6 col-sm-12" *ngIf="mostrarDatosCLiente">
+              <span>DNI: {{cliente?.dni}}</span>
             </div>
             <div class="col-md-6 col-sm-12">
                 <span>ID Vendedor: {{datosComprobante.comprobante.vendedorId}}</span>
