@@ -42,10 +42,15 @@
             <th mat-header-cell *matHeaderCellDef>Año</th>
             <td mat-cell *matCellDef="let element"> {{element.anno}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="precioCompra">
+            <th mat-header-cell *matHeaderCellDef>Precio Compra</th>
+            <td mat-cell *matCellDef="let element"> {{element.precioCompra | currency}}</td>
+          </ng-container>
   
           <ng-container matColumnDef="precio">
-            <th mat-header-cell *matHeaderCellDef>Precio</th>
-            <td mat-cell *matCellDef="let element"> {{element.precio}} $</td>
+            <th mat-header-cell *matHeaderCellDef>Precio Venta</th>
+            <td mat-cell *matCellDef="let element"> {{element.precio | currency}}</td>
           </ng-container>
   
           <ng-container matColumnDef="stockActual">

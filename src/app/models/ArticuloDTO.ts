@@ -2,6 +2,7 @@ export interface ArticuloDTO {
     id: number,
     descripcion: string,
     precio: number,
+    precioCompra: number,
     marca: string,
     modelo: string,
     anno: string

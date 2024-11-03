@@ -159,7 +159,7 @@ export class RealizarOCComponent {
   agregarArticuloParaOrden(){
     console.log(this.cantidadSeleccionada)
     const cantidad: number = this.cantidadSeleccionada.value;
-    const precio: number = this.articuloSeleccionado.precio;
+    const precio: number = this.articuloSeleccionado.precioCompra;
     const total: number = cantidad * precio;
     this.totalPagar  += total;
 

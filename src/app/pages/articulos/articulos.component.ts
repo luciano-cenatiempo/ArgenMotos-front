@@ -1,4 +1,3 @@
-import { articulosLista } from './articulos.mocks';
 import { Articulo } from 'src/app/models/Articulo';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -16,7 +15,7 @@ import { ArticuloFormComponent } from '../articulo-form/articulo-form.component'
 export class ArticulosComponent implements OnInit, AfterViewInit {
   
     // nuevo
-    columnasTabla: string[] = ['id','descripcion','marca','modelo','anno','precio', 'stockActual','stockMinimo', 'stockMaximo', 'acciones'];
+    columnasTabla: string[] = ['id','descripcion','marca','modelo','anno','precioCompra','precio', 'stockActual','stockMinimo', 'stockMaximo', 'acciones'];
     dataInicio : Articulo[] = [];
     
     dataListaArticulos = new MatTableDataSource(this.dataInicio);
@@ -47,7 +46,7 @@ export class ArticulosComponent implements OnInit, AfterViewInit {
   
     // este metodo es para probar la funcionalidad sin base de datos
     obtenerArticulosMock(){
-      this.dataListaArticulos.data = articulosLista;
+      // this.dataListaArticulos.data = articulosLista;
       
     }
     

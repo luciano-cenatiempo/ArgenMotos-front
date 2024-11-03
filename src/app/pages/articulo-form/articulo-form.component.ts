@@ -33,6 +33,7 @@ export class ArticuloFormComponent {
       marca:[{value: null , disabled:false},[Validators.required, Validators.minLength(3),Validators.maxLength(20)]] ,
       modelo:[{value: null , disabled:false},[Validators.required, Validators.minLength(3), Validators.maxLength(20)]], 
       precio:[{value: null , disabled:false},[Validators.required]], 
+      precioCompra:[{value: null , disabled:false},[Validators.required]], 
       anno:[{value: null, disabled:false},[Validators.required, Validators.minLength(4), Validators.maxLength(4)]] ,
       stockActual:[{value: null, disabled:false},[Validators.required]] ,
       stockMinimo:[{value: null , disabled:false},[Validators.required]], 
@@ -58,6 +59,7 @@ export class ArticuloFormComponent {
       modelo: this.formGroup.value.modelo,
       anno: (parseInt(this.formGroup.value.anno)).toString(),
       precio: this.formGroup.value.precio,
+      precioCompra: this.formGroup.value.precioCompra,
       stockActual: this.formGroup.value.stockActual,
       stockMinimo: this.formGroup.value.stockMinimo,
       stockMaximo: this.formGroup.value.stockMaximo,
@@ -109,6 +111,7 @@ export class ArticuloFormComponent {
         modelo: this.datosArticulo.articulo.modelo,
         anno: this.datosArticulo.articulo.anno,
         precio: this.datosArticulo.articulo.precio,
+        precioCompra: this.datosArticulo.articulo.precioCompra,
         stockActual: this.datosArticulo.articulo.stockActual,
         stockMinimo: this.datosArticulo.articulo.stockMinimo,
         stockMaximo: this.datosArticulo.articulo.stockMaximo
@@ -121,6 +124,7 @@ export class ArticuloFormComponent {
         this.formGroup.controls['modelo'].disable();
         this.formGroup.controls['anno'].disable();
         this.formGroup.controls['precio'].disable();
+        this.formGroup.controls['precioCompra'].disable();
         this.formGroup.controls['stockMinimo'].disable();
         this.formGroup.controls['stockMaximo'].disable();
         this.formGroup.controls['stockActual'].disable();
