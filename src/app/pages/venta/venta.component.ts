@@ -221,11 +221,10 @@ export class VentaComponent implements OnInit{
           this.totalPagar = 0;
           this.listaArticulosParaVenta = [];
           this.datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
-
           Swal.fire({
             icon: 'success',
             title: 'Factura realizada',
-            text: `Numero de venta: ${data.id}`
+            text: `Factura realizada correctamente`
           })
         }else {
           Swal.fire({
