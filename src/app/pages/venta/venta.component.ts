@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -17,6 +17,7 @@ import { CantidadArticulo } from 'src/app/interfaces/cantidad-articulo';
 import { FacturaDto } from 'src/app/models/factura-dto';
 import { UserService } from 'src/app/services/user.service';
 import { Empleado } from 'src/app/models/Empleado';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class VentaComponent implements OnInit{
   columnasTabla: string[] = ['cantidad','articulo','precio','total','accion'];
   datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
   vendedor: Empleado;
-
+  router = inject(Router);
 
   constructor(
     private fb: FormBuilder,
@@ -226,6 +227,9 @@ export class VentaComponent implements OnInit{
             title: 'Factura realizada',
             text: `Factura realizada correctamente`
           })
+          
+          this.router.navigate(['/facturas'])
+          
         }else {
           Swal.fire({
             icon: 'error',
