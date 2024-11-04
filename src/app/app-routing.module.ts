@@ -13,6 +13,7 @@ import { OtrosComprobantesComponent } from './pages/otros-comprobantes/otros-com
 import { LoginComponent } from './pages/login/login.component';
 import { loginGuard } from './guards/login.guard';
 import { homeGuard } from './guards/home.guard';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
   {path: 'clientes', component: ClientesComponent, canActivate: [loginGuard]},
@@ -20,7 +21,7 @@ const routes: Routes = [
   {path: 'empleados', component: EmpleadosComponent, canActivate: [loginGuard]},
   {path: 'proveedores', component: ProveedoresComponent, canActivate: [loginGuard]},
   {path: 'facturas', component: FacturaComponent, canActivate: [loginGuard]},
-  {path: '', component: ArticulosComponent, canActivate: [loginGuard]},
+  {path: '', component: HomeComponent, canActivate: [loginGuard]},
   {path: 'venta', component: VentaComponent, canActivate: [loginGuard]},
   {path: 'cobranzas', component: CobranzasComponent, canActivate: [loginGuard]},
   {path: 'realizar-oc', component: RealizarOCComponent, canActivate: [loginGuard]},

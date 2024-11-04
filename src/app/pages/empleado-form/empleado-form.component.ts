@@ -45,7 +45,7 @@ export class EmpleadoFormComponent implements OnInit {
         apellido:[{value: null , disabled:false},[Validators.required, Validators.minLength(3)]] ,
         dni:[{value: null , disabled:false},[Validators.required, Validators.minLength(6), Validators.maxLength(8)]], 
         telefono:[{value: null, disabled:false},[Validators.required, Validators.minLength(8), Validators.maxLength(11)]] ,
-        email:[{value: null, disabled:false},[Validators.required, Validators.email]] ,
+        email:[{value: null, disabled:true},[Validators.required, Validators.email]] ,
         estado:[{value: 0, disabled:false} ]
       })
     }
@@ -74,7 +74,7 @@ export class EmpleadoFormComponent implements OnInit {
     }
 
     if (this.datosEmpleado.tipo == 'crear'){
-  
+      
       this._empleadoService.createEmpleado(empleado).subscribe({
         next: (data) =>{
           if(data!= null){

@@ -47,6 +47,8 @@ import { EstadoPipe } from './pipes/estado.pipe';
 import { MetodoPagoPipe } from './pipes/metodo-pago.pipe';
 import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
 import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 
 @NgModule({
@@ -77,7 +79,9 @@ import { LoginComponent } from './pages/login/login.component';
     EstadoPipe,
     MetodoPagoPipe,
     OrdenEstadoPipe,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,35 @@
+.app-panel-container{
+    padding-top: 50px;
+    
+    
+    
+}
+
+.app-panel-container .mat-mdc-card{
+    background-color: #F95454 !important;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, .15)!important;
+    color: white;
+    transition: all .25 ease, transform .25 ease;
+    font-weight: bold;
+    margin: 10px 5px ;
+}
+
+.app-panel-container .mat-mdc-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 0 35px rgba(255, 255, 255, .25);
+}
+
+.app-panel-container .mat-mdc-card p{
+    margin-top: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-panel-container .mat-mdc-card .mat-icon{
+    transform: scale(3);
+    margin: 40px auto 20px auto;
+}

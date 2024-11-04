@@ -1,48 +1,14 @@
-<nav class="navbar navbar-expand-lg bg-body-secondary">
+<!-- <nav class="navbar navbar-expand-lg bg-body-secondary">
   
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="">ArgenMotos</a>
+      <a class="navbar-brand" routerLink=""><mat-icon>home</mat-icon> ArgenMotos</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="articulos">Articulos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="empleados"  routerLink="empleados" >Vendedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="clientes" >Clientes</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="proveedores" >Proveedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="venta" >Generar venta</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="facturas" >Facturas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="cobranzas" >Cobranzas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="realizar-oc" >Generar Orden Compra</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="ordenes-compra" >Ordenes de compra</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"   routerLink="otros-comprobantes" >Otros comprobantes</a>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link" (click)="logout()" >Cerrar sesion</a>
-          </li>
-
-          
+          <button (click) ="logout()" *ngIf="login">cerrar sesion</button>
           
         </ul>
       </div>
@@ -50,6 +16,6 @@
     </div>
 
     
-  </nav>
+  </nav> -->
 
   <router-outlet> </router-outlet>

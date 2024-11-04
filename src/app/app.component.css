@@ -3,4 +3,7 @@ nav{
     font-size: 16px;
 }
 
+mat-icon{
+    transform: scale(1.5);
+}
 

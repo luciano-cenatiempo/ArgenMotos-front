@@ -30,6 +30,27 @@ export class LoginComponent {
     const user = {
       email: this.formGroup.value.email,
       password: this.formGroup.value.password };
+
+      const emailRegex:RegExp = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+      //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+      if (!emailRegex.test(user.email)) {
+        Swal.fire({
+          title: "Error",
+          text: "El formato de email es invalido",
+          icon: "error"
+        });
+        return
+      } 
+
+      if(!user.password){
+        Swal.fire({
+          title: "Error",
+          text: "Debe ingresar contraseña",
+          icon: "error"
+        });
+        return
+      }
+    
       
     this._userService.login(user).subscribe({
       next: (data) =>{
@@ -60,4 +81,9 @@ export class LoginComponent {
     });
 
   }
+
+  hasErrors(controlName: string, errorType: string){
+    return this.formGroup.get(controlName)?.hasError(errorType) && this.formGroup.get(controlName)?.touched
+  }
+
 }

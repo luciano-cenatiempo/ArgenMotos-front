@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg bg-body-secondary">
+  
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink=""><mat-icon class="home">home</mat-icon> ArgenMotos</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          
+        </ul>
+       
+    </div>
+        <div class="row login justify-content-center "> 
+            <div class="col-6 text-end d-flex justify-content-center">
+                <mat-icon>person</mat-icon> <p> {{usuario?.nombre}} {{usuario?.apellido}}</p>
+            </div>
+            <div  (click)="logout()" class="col-6 d-flex justify-content-center cerrar-sesion">
+                <mat-icon>logout</mat-icon><p>Cerrar sesión</p>
+            </div> 
+        </div>
+
+    </div>
+
+    
+  </nav>
+
+  <router-outlet> </router-outlet>

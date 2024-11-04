@@ -8,6 +8,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
 import { Empleado } from 'src/app/models/Empleado';
 import Swal from 'sweetalert2'
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-empleados',
@@ -27,7 +28,8 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
   constructor(
     public dialog: MatDialog,
     private _empleadoService : EmpleadoService,
-    private _utilidadService : UtilidadService
+    private _utilidadService : UtilidadService,
+    private _userService : UserService
 
   ){}
   
@@ -124,6 +126,15 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
 
 
   eliminarEmpleado(empleado: Empleado){
+    if(empleado.id == this._userService.getUsuarioLogeado().id){
+      Swal.fire({
+        title:"Error",
+        text: "No se puede eliminar a usted mismo",
+        icon:"error"
+      })
+    }else{
+
+    
     Swal.fire({
       title: "¿Desea eliminar el vendedor?",
       text: `${empleado.nombre} ${empleado.apellido}`,
@@ -134,24 +145,25 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
       cancelButtonColor:"#d33",
       cancelButtonText:'Cancelar'
     }).then((resultado)=>{
-      if(resultado.isConfirmed){
-        this._empleadoService.deleteEmpleado(empleado.id).subscribe({
-          next: (data) => {
-            if(data){
-              this._utilidadService.mostrarAlerta("El empleado fue eliminado","Listo!")
-              this.obtenerEmpleados();
+        if(resultado.isConfirmed){
+          this._empleadoService.deleteEmpleado(empleado.id).subscribe({
+            next: (data) => {
+              if(data){
+                this._utilidadService.mostrarAlerta("El empleado fue eliminado","Listo!")
+                this.obtenerEmpleados();
 
-            } else {
-              this._utilidadService.mostrarAlerta("No se pudo eliminar el empleado","Error");
+              } else {
+                this._utilidadService.mostrarAlerta("No se pudo eliminar el empleado","Error");
 
+              }
+            },
+            error: (e) =>{
+              console.error(e);
             }
-          },
-          error: (e) =>{
-            console.error(e);
-          }
-        });
-      }
-    })
+          });
+        }
+      })
+    }
   }
 
 
