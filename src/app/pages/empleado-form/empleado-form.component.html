@@ -9,7 +9,7 @@
                     <mat-radio-button [value]="1">Desabilitado</mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <mat-form-field class="input-full-width">
                     <mat-label>Nombre</mat-label>
                     <input formControlName="nombre" name="nombre" matInput type="text">
@@ -21,7 +21,7 @@
                     </mat-error> 
                 </mat-form-field>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <mat-form-field class="input-full-width">
                     <mat-label>Apellido</mat-label>
                     <input formControlName="apellido" name="apellido" matInput type="text">
@@ -33,7 +33,7 @@
                     </mat-error> 
                 </mat-form-field>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <mat-form-field class="input-full-width">
                     <mat-label>DNI</mat-label>
                     <input formControlName="dni" name="dni" matInput type="text">
@@ -45,7 +45,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <mat-form-field class="input-full-width">
                     <mat-label>Telefono</mat-label>
                     <input formControlName="telefono" name="telefono" matInput type="text">
@@ -58,7 +58,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-6 ">
+            <div class="col-md-6 col-sm-12">
                 <mat-form-field class="input-full-width">
                     <mat-label>Email</mat-label>
                     <input formControlName="email" name="email" matInput type="email">
@@ -68,6 +68,20 @@
                     </mat-error>
                     <mat-error *ngIf="hasErrors('email','email')">
                         Por favor ingrese un email valido
+                    </mat-error>
+                    
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-12" *ngIf="datosEmpleado.tipo == 'crear'">
+                <mat-form-field class="input-full-width">
+                    <mat-label>Password</mat-label>
+                    <input formControlName="password" name="password" matInput type="password">
+                    
+                    <mat-error *ngIf="hasErrors('password','required')">
+                        Por favor ingrese una contraseña valida
+                    </mat-error>
+                    <mat-error *ngIf="hasErrors('password','minLength')">
+                        La contraseña debe tener almenos 8 digitos
                     </mat-error>
                     
                 </mat-form-field>

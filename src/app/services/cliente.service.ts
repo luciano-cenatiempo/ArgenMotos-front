@@ -4,6 +4,7 @@ import { appSettings } from '../settings/appSettings';
 import { Observable } from 'rxjs';
 import { Cliente } from '../models/Cliente';
 import { ClienteDTO } from '../DTO/ClienteDTO';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -13,26 +14,40 @@ export class ClienteService {
   private http = inject(HttpClient);
 
   private UrlBase: string = appSettings.apiUrl + 'cliente';
+  private headers: any = {'Authorization':`Bearer ${this._userService.getToken()}`}
+
   
-  constructor() { }
+  constructor(
+    private _userService:UserService
+
+  ) { }
 
   getAllClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.UrlBase);
+    const headers = this.headers;
+    return this.http.get<Cliente[]>(this.UrlBase,{headers});
   }
 
   getClienteById(id : number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.UrlBase}/${id}`);
+    const headers = this.headers;
+
+    return this.http.get<Cliente>(`${this.UrlBase}/${id}`,{headers});
   }
 
   createCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.UrlBase}`, cliente);
+    const headers = this.headers;
+
+    return this.http.post<Cliente>(`${this.UrlBase}`, cliente,{headers});
   }
 
   updateCliente(id: number, cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.UrlBase}/${id}`, cliente);
+    const headers = this.headers;
+
+    return this.http.put<Cliente>(`${this.UrlBase}/${id}`, cliente,{headers});
   }
 
   deleteCliente(id: number): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.UrlBase}/${id}`);
+    const headers = this.headers;
+
+    return this.http.delete<Cliente>(`${this.UrlBase}/${id}`,{headers});
   }
 }

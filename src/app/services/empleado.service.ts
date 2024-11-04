@@ -4,6 +4,7 @@ import { appSettings } from '../settings/appSettings';
 import { Empleado } from '../models/Empleado';
 import { Observable } from 'rxjs';
 import { EmpleadoDto } from '../models/EmpleadoDto';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +14,42 @@ export class EmpleadoService {
   private http = inject(HttpClient);
 
   private UrlBase: string = appSettings.apiUrl + 'vendedor';
+  private headers: any = {'Authorization':`Bearer ${this._userService.getToken()}`}
+
   
-  constructor() { }
+  constructor(
+    private _userService:UserService
+
+  ) { }
 
   getAllEmpleados(): Observable<Empleado[]> {
-    return this.http.get<Empleado[]>(this.UrlBase);
+    const headers = this.headers;
+
+    return this.http.get<Empleado[]>(this.UrlBase,{headers});
   }
 
   getEmpleadoById(id : number): Observable<Empleado> {
-    return this.http.get<Empleado>(`${this.UrlBase}/${id}`);
+    const headers = this.headers;
+
+    return this.http.get<Empleado>(`${this.UrlBase}/${id}`,{headers});
   }
 
   createEmpleado(empleado: EmpleadoDto): Observable<Empleado> {
-    return this.http.post<Empleado>(`${this.UrlBase}`, empleado);
+    const headers = this.headers;
+
+    return this.http.post<Empleado>(`${this.UrlBase}`, empleado,{headers});
   }
 
   updateEmpleado(id: number, empleado: Empleado): Observable<Empleado> {
-    return this.http.put<Empleado>(`${this.UrlBase}/${id}`, empleado);
+    const headers = this.headers;
+
+    return this.http.put<Empleado>(`${this.UrlBase}/${id}`, empleado,{headers});
   }
 
   deleteEmpleado(id: number): Observable<Empleado> {
-    return this.http.delete<Empleado>(`${this.UrlBase}/${id}`);
+    const headers = this.headers;
+
+    return this.http.delete<Empleado>(`${this.UrlBase}/${id}`,{headers});
   }
 
 

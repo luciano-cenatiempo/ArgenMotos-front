@@ -7,6 +7,7 @@ import { CobranzaDto } from 'src/app/models/cobranza-dto';
 import { Factura } from 'src/app/models/factura';
 import { CobranzaService } from 'src/app/services/cobranza.service';
 import { FacturaService } from 'src/app/services/factura.service';
+import { UserService } from 'src/app/services/user.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
 
 
@@ -27,7 +28,6 @@ export class CobranzaFormComponent {
 
   listaFacturasFiltro: Factura[] = [];
 
-
   facturaSeleccionada!: Factura;
 
 
@@ -46,7 +46,8 @@ export class CobranzaFormComponent {
      private fb: FormBuilder,
      private _cobranzaService: CobranzaService,
      private _facturaService: FacturaService,
-     private _utilidadService: UtilidadService
+     private _utilidadService: UtilidadService,
+     
      
    ){
      this.formGroup = this.fb.group({

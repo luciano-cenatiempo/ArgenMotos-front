@@ -46,6 +46,7 @@ import { TipoComprobantePipe } from './pipes/tipo-comprobante.pipe';
 import { EstadoPipe } from './pipes/estado.pipe';
 import { MetodoPagoPipe } from './pipes/metodo-pago.pipe';
 import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
     TipoComprobantePipe,
     EstadoPipe,
     MetodoPagoPipe,
-    OrdenEstadoPipe
+    OrdenEstadoPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,7 @@ import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
     MatFormFieldModule,
     MatSelectModule,
     MatAutocompleteModule,
-    AsyncPipe
+    AsyncPipe,
   ],
   exports:[
     MatDialogModule,
@@ -114,7 +116,7 @@ import { OrdenEstadoPipe } from './pipes/orden-estado.pipe';
     MatFormFieldModule,
     MatSelectModule,
     MatAutocompleteModule,
-    AsyncPipe
+    AsyncPipe,
   ],
   providers: [],
   bootstrap: [AppComponent]

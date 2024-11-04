@@ -10,22 +10,24 @@ import { CobranzasComponent } from './pages/cobranzas/cobranzas.component';
 import { RealizarOCComponent } from './pages/realizar-oc/realizar-oc.component';
 import { OrdenCompraComponent } from './pages/orden-compra/orden-compra.component';
 import { OtrosComprobantesComponent } from './pages/otros-comprobantes/otros-comprobantes.component';
+import { LoginComponent } from './pages/login/login.component';
+import { loginGuard } from './guards/login.guard';
+import { homeGuard } from './guards/home.guard';
 
 const routes: Routes = [
-  {path: 'clientes', component: ClientesComponent},
-  {path: 'articulos', component: ArticulosComponent},
-  {path: 'empleados', component: EmpleadosComponent},
-  {path: 'proveedores', component: ProveedoresComponent},
-  {path: 'facturas', component: FacturaComponent},
-  {path: '', component: ArticulosComponent},
-  {path: 'venta', component: VentaComponent},
-  {path: 'cobranzas', component: CobranzasComponent},
-  {path: 'realizar-oc', component: RealizarOCComponent},
-  {path: 'ordenes-compra', component: OrdenCompraComponent},
-  {path: 'otros-comprobantes', component: OtrosComprobantesComponent},
-
-
-  {path: '**', redirectTo: '', pathMatch: 'full'}
+  {path: 'clientes', component: ClientesComponent, canActivate: [loginGuard]},
+  {path: 'articulos', component: ArticulosComponent, canActivate: [loginGuard]},
+  {path: 'empleados', component: EmpleadosComponent, canActivate: [loginGuard]},
+  {path: 'proveedores', component: ProveedoresComponent, canActivate: [loginGuard]},
+  {path: 'facturas', component: FacturaComponent, canActivate: [loginGuard]},
+  {path: '', component: ArticulosComponent, canActivate: [loginGuard]},
+  {path: 'venta', component: VentaComponent, canActivate: [loginGuard]},
+  {path: 'cobranzas', component: CobranzasComponent, canActivate: [loginGuard]},
+  {path: 'realizar-oc', component: RealizarOCComponent, canActivate: [loginGuard]},
+  {path: 'ordenes-compra', component: OrdenCompraComponent, canActivate: [loginGuard]},
+  {path: 'otros-comprobantes', component: OtrosComprobantesComponent, canActivate: [loginGuard]},
+  {path: "login", component: LoginComponent, pathMatch: "full", canActivate: [homeGuard] },
+  {path: '**', redirectTo: '', pathMatch: 'full', canActivate: [loginGuard]}
 
 
 

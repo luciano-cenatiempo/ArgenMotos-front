@@ -7,6 +7,8 @@ import { OtroComprobanteService } from 'src/app/services/otro-comprobante.servic
 import { OtroComprobante } from 'src/app/models/otro-comprobante';
 import { OtroComprobanteDto } from 'src/app/models/otro-comprobante-dto';
 import { OtroComprobanteTipo } from 'src/app/interfaces/OtroComprobanteTipo';
+import { Empleado } from 'src/app/models/Empleado';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-otros-comprobantes-realizar',
   templateUrl: './otros-comprobantes-realizar.component.html',
@@ -18,7 +20,7 @@ export class OtrosComprobantesRealizarComponent implements OnInit{
   tituloAccion?: string;
   botonAccion?: string;
   visualizar: boolean = false;
-
+  vendedor: Empleado;
   
 
   comprobanteTipo: OtroComprobanteTipo[] = [
@@ -31,14 +33,17 @@ export class OtrosComprobantesRealizarComponent implements OnInit{
     public dialogRef: MatDialogRef<OtrosComprobantesRealizarComponent>, // para poder manipular la ventana modal
     private fb: FormBuilder,
     private _utilidadService: UtilidadService,
-    private _comprobanteService: OtroComprobanteService
+    private _comprobanteService: OtroComprobanteService,
+    private _userService: UserService
+
     
   ){
+    this.vendedor = _userService.getUsuarioLogeado();
     this.formGroup = this.fb.group({
       facturaId: [{value: datosOtroComprobante.factura.id, disabled: true}, [Validators.required]],  
       tipo:[{value: 0 , disabled:false},[Validators.required]], 
       clienteId: [{value: datosOtroComprobante.factura.clienteId, disabled: true}, [Validators.required]],  
-      vendedorId: [{value: 1, disabled: true}, [Validators.required]],
+      vendedorId: [{value: this.vendedor.id, disabled: true}, [Validators.required]],
       descripcion: [{value: null, disabled: false}, [Validators.required]],
       monto: [{value: null, disabled: false}, [Validators.required]],
       
@@ -46,6 +51,8 @@ export class OtrosComprobantesRealizarComponent implements OnInit{
 
       
     })
+
+    
   }
 
   ngOnInit(): void {
@@ -61,11 +68,10 @@ export class OtrosComprobantesRealizarComponent implements OnInit{
       fecha: new Date(),
       facturaId: this.datosOtroComprobante.factura.id,
       clienteId: this.datosOtroComprobante.factura.clienteId,
-      vendedorId:1,
+      vendedorId: this.vendedor.id,
       descripcion:this.formGroup.value.descripcion,
       tipo: this.formGroup.value.tipo,
       monto: this.formGroup.value.monto
-      // estadoVendedor: parseInt(this.formGroup.value.estadoVendedor)
     }
 
     if (this.datosOtroComprobante.tipo == 'editar'){

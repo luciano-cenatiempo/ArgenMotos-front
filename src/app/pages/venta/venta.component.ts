@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 import { filter, Observable, of, switchMap } from 'rxjs';
 import { CantidadArticulo } from 'src/app/interfaces/cantidad-articulo';
 import { FacturaDto } from 'src/app/models/factura-dto';
+import { UserService } from 'src/app/services/user.service';
+import { Empleado } from 'src/app/models/Empleado';
 
 
 @Component({
@@ -48,7 +50,7 @@ export class VentaComponent implements OnInit{
   formularioArticuloVenta: FormGroup;
   columnasTabla: string[] = ['cantidad','articulo','precio','total','accion'];
   datosDetalleVEnta = new MatTableDataSource(this.listaArticulosParaVenta);
-
+  vendedor: Empleado;
 
 
   constructor(
@@ -56,9 +58,10 @@ export class VentaComponent implements OnInit{
     private _articuloService:ArticuloService,
     private _FacturaService: FacturaService,
     private _utilidadesService: UtilidadService,
-    private _clienteService: ClienteService 
+    private _clienteService: ClienteService,
+    private _userService: UserService
   ){
-
+    this.vendedor = _userService.getUsuarioLogeado();
     // Formulario articulos
     this.formularioArticuloVenta = this.fb.group({
       cliente:[{value: null , disabled:false},[Validators.required]],
@@ -206,7 +209,7 @@ export class VentaComponent implements OnInit{
     const factura : FacturaDto = {
       fecha: new Date(),
       clienteId: this.clienteSeleccionado.id,
-      vendedorId: 1,
+      vendedorId: this.vendedor.id,
       articulos: this.listaArticulosParaVenta
     }
 

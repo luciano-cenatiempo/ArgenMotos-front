@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Empleado, EstadoVendedor } from 'src/app/models/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { UserService } from 'src/app/services/user.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
 
 @Component({
@@ -24,18 +25,31 @@ export class EmpleadoFormComponent implements OnInit {
     public dialogRef: MatDialogRef<EmpleadoFormComponent>, // para poder manipular la ventana modal
     private fb: FormBuilder,
     private _empleadoService: EmpleadoService,
-    private _utilidadService: UtilidadService
+    private _utilidadService: UtilidadService,
+    private _userService: UserService
     
   ){
-    this.formGroup = this.fb.group({
-      nombre: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
-      apellido:[{value: null , disabled:false},[Validators.required, Validators.minLength(3)]] ,
-      dni:[{value: null , disabled:false},[Validators.required, Validators.minLength(6), Validators.maxLength(8)]], 
-      telefono:[{value: null, disabled:false},[Validators.required, Validators.minLength(8), Validators.maxLength(11)]] ,
-      email:[{value: null, disabled:false},[Validators.required, Validators.email]] ,
-      estado:[{value: 0, disabled:false} ]   
-      
-    })
+    if(datosEmpleado.tipo == 'crear'){
+      this.formGroup = this.fb.group({
+        nombre: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
+        apellido:[{value: null , disabled:false},[Validators.required, Validators.minLength(3)]] ,
+        dni:[{value: null , disabled:false},[Validators.required, Validators.minLength(6), Validators.maxLength(8)]], 
+        telefono:[{value: null, disabled:false},[Validators.required, Validators.minLength(8), Validators.maxLength(11)]] ,
+        email:[{value: null, disabled:false},[Validators.required, Validators.email]] ,
+        estado:[{value: 0, disabled:false} ],
+        password:[{value: null, disabled:false},[Validators.required, Validators.minLength(8)]] ,
+      })
+    }else{
+      this.formGroup = this.fb.group({
+        nombre: [{value: null, disabled: false}, [Validators.required, Validators.minLength(3)]],  
+        apellido:[{value: null , disabled:false},[Validators.required, Validators.minLength(3)]] ,
+        dni:[{value: null , disabled:false},[Validators.required, Validators.minLength(6), Validators.maxLength(8)]], 
+        telefono:[{value: null, disabled:false},[Validators.required, Validators.minLength(8), Validators.maxLength(11)]] ,
+        email:[{value: null, disabled:false},[Validators.required, Validators.email]] ,
+        estado:[{value: 0, disabled:false} ]
+      })
+    }
+    
   }
 
   ngOnInit(): void {
@@ -60,22 +74,35 @@ export class EmpleadoFormComponent implements OnInit {
     }
 
     if (this.datosEmpleado.tipo == 'crear'){
-      console.log(empleado)
-      console.log(empleado.id)
+  
       this._empleadoService.createEmpleado(empleado).subscribe({
         next: (data) =>{
           if(data!= null){
             this._utilidadService.mostrarAlerta("El vendedor fue registrado con exito", "Exito");
-            this.dialogRef.close("true")
+            this._userService.register({emailVendedor:this.formGroup.value.email, password:this.formGroup.value.password}).subscribe({
+              next: (data2) =>{
+                this.dialogRef.close("true")
+              },
+              error:(e) => {
+                console.error(e)
+                this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error")
+              }
+            
+            })
+
+            
           } else{
             this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error");
           }
         },
-        error:(e) => {console.error(e)}
+        error:(e) => {
+          console.error(e)
+          this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error")
+
+        }
         
       })
     } else if(this.datosEmpleado.tipo == 'editar') {
-      console.log(empleado)
       this._empleadoService.updateEmpleado(this.datosEmpleado.empleado.id, empleado).subscribe({
         next: (data) =>{
           if(data!= null){

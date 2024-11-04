@@ -18,6 +18,7 @@ import { OrdenCompraArticulo } from 'src/app/models/orden-compra-articulo';
 import { OrdenCompraDTO } from 'src/app/models/orden-compra-dto';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { OrdenEstado } from 'src/app/interfaces/orden-estado';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -67,9 +68,9 @@ export class OrdenCompraFormComponent {
     private _articuloService:ArticuloService,
     private _utilidadesService: UtilidadService,
     private _proveedorService: ProveedorService,
-    private _ordenCompraService: OrdenCompraService
+    private _ordenCompraService: OrdenCompraService,
   ){
-    console.log()
+    
     // Formulario articulos
     this.formularioArticuloOrden = this.fb.group({
       proveedor:[{value: datosOrden.orden.proveedorId, disabled:true},[Validators.required]],
