@@ -5,6 +5,7 @@ import { Empleado, EstadoVendedor } from 'src/app/models/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { UserService } from 'src/app/services/user.service';
 import { UtilidadService } from 'src/app/services/utilidad.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-empleado-form',
@@ -62,7 +63,7 @@ export class EmpleadoFormComponent implements OnInit {
   }
 
   guardarEditar(){
-    const empleado: Empleado ={
+    let empleado: Empleado ={
       id: this.datosEmpleado.empleado == null ? 0 : this.datosEmpleado.empleado.Id,
       nombre: this.formGroup.value.nombre,
       apellido: this.formGroup.value.apellido,
@@ -74,34 +75,53 @@ export class EmpleadoFormComponent implements OnInit {
     }
 
     if (this.datosEmpleado.tipo == 'crear'){
-      
-      this._empleadoService.createEmpleado(empleado).subscribe({
+      this._empleadoService.existEmail(empleado.email).subscribe({
         next: (data) =>{
-          if(data!= null){
-            this._utilidadService.mostrarAlerta("El vendedor fue registrado con exito", "Exito");
-            this._userService.register({emailVendedor:this.formGroup.value.email, password:this.formGroup.value.password}).subscribe({
-              next: (data2) =>{
-                this.dialogRef.close("true")
+          if(data == true){
+            Swal.fire({
+              title: "Error",
+              text: "Ya existe un usuario con ese email",
+              icon: "error"
+            });
+            empleado.email = '';
+            return
+          }else {
+            this._empleadoService.createEmpleado(empleado).subscribe({
+              next: (data) =>{
+                if(data!= null){
+                  this._utilidadService.mostrarAlerta("El vendedor fue registrado con exito", "Exito");
+                  this._userService.register({emailVendedor:this.formGroup.value.email, password:this.formGroup.value.password}).subscribe({
+                    next: (data2) =>{
+                      this.dialogRef.close("true")
+                    },
+                    error:(e) => {
+                      console.error(e)
+                      this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error")
+                    }
+                  
+                  })
+      
+                  
+                } else{
+                  this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error");
+                }
               },
               error:(e) => {
                 console.error(e)
                 this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error")
+      
               }
-            
+              
             })
-
-            
-          } else{
-            this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error");
           }
-        },
-        error:(e) => {
-          console.error(e)
-          this._utilidadService.mostrarAlerta("No se pudo registrar el vendedor", "Error")
-
+        },error:(e)=>{
+          console.log(e)
+          return
         }
-        
       })
+      
+      
+      
     } else if(this.datosEmpleado.tipo == 'editar') {
       this._empleadoService.updateEmpleado(this.datosEmpleado.empleado.id, empleado).subscribe({
         next: (data) =>{

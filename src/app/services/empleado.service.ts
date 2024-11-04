@@ -52,6 +52,12 @@ export class EmpleadoService {
     return this.http.delete<Empleado>(`${this.UrlBase}/${id}`,{headers});
   }
 
+  existEmail(email : string): Observable<boolean> {
+    const headers = this.headers;
+
+    return this.http.get<boolean>(`${this.UrlBase}/email/${email}`,{headers});
+  }
+
 
 
   
